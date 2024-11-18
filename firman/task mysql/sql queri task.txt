@@ -4,17 +4,17 @@
 
 3. SELECT * FROM 'dokter' WHERE alamat : 'cipondoh';
 
-4. SELECT * FROM 'pasien';
+4. SELECT * FROM `pasien` ORDER BY usia ASC;;
 
-5. SELECT * FROM resep WHERE tanggal_resep BETWEEN 2024-03-09 AND 2024-07-09;
+5. SELECT * FROM resep WHERE tanggal_resep BETWEEN 19 AND 27;
 
-6. SELECT * FROM `pasien` WHERE nama LIKE 'a%';
+6. SELECT * FROM `pasien` WHERE nama LIKE '%a%';
 
-7. SELECT * FROM 'resep';
+7. SELECT * FROM 'resep'WHERE alamat LIKE '%pon';
 
 8. SELECT * FROM 'pasien' WHERE usia > 20;
 
 9. SELECT * FROM `pasien` WHERE usia < 20 AND alamat like '%pondok%';
 
-10. INSERT INTO `dokter` (`id_dokter`, `nama`, `alamat`, `no_tlp`, `id_resep`) VALUES (NULL, 'gerard', 'cipondoh', '08537398786', NULL);
+10. SELECT AVG (usia) FROM pasien;
 
