@@ -18,3 +18,9 @@
 
 10. SELECT AVG (usia) FROM pasien;
 
+11. UPDATE 'pasien' SET alamat = 'grogol' where nama = 'marni';
+
+12. UPDATE 'resep' SET tanggal_dibuat = 2024-11-21
+
+13. DELETE FROM 'dokter' WHERE namea = 'baskara' 
+
