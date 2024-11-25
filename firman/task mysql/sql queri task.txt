@@ -30,3 +30,7 @@
 
 16. SELECT dokter.nama, dokter.id_resep, resep.tanggal_dibuat FROM dokter LEFT JOIN resep ON dokter.id_resep = resep.id_resep ORDER BY dokter.id_dokter ASC;
 
+17. SELECT resep.tanggal_dibuat, resep.id_pasien, pasien.nama, pasien.usia FROM resep LEFT JOIN pasien ON resep.id_pasien = pasien.id_pasien ORDER BY pasien.id_pasien DESC;
+
+18. SELECT resep.tanggal_dibuat, resep.id_pasien, pasien.nama, pasien.usia FROM resep RIGHT JOIN pasien ON resep.id_pasien = pasien.id_pasien ORDER BY pasien.usia ASC;
+
