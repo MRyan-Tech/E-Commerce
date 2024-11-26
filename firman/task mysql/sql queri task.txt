@@ -34,3 +34,9 @@
 
 18. SELECT resep.tanggal_dibuat, resep.id_pasien, pasien.nama, pasien.usia FROM resep RIGHT JOIN pasien ON resep.id_pasien = pasien.id_pasien ORDER BY pasien.usia ASC;
 
+19. SELECT pasien.nama, pasien.no_tlp, dokter.nama, dokter.id_resep, resep.tanggal_dibuat FROM pasien JOIN dokter ON dokter.id_dokter = pasien.id_dokter JOIN resep ON resep.id_pasien = pasien.id_pasien;
+
+20. SELECT pasien.nama, pasien.alamat, pasien.no_tlp, dokter.nama, dokter.id_resep, resep.tanggal_dibuat FROM dokter JOIN pasien ON pasien.id_dokter = dokter.id_dokter JOIN resep ON resep.id_pasien = pasien.id_pasien WHERE pasien.alamat LIKE '%pondok%';
+
+21. SELECT pasien.nama, pasien.alamat, pasien.no_tlp, dokter.nama, dokter.id_resep, resep.tanggal_dibuat FROM dokter JOIN pasien ON pasien.id_dokter = dokter.id_dokter JOIN resep ON resep.id_pasien = pasien.id_pasien ORDER BY pasien.nama ASC;
+
