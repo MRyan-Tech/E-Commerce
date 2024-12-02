@@ -1,0 +1,35 @@
+-- 1. Menampilkan Semua Data dalam Tabel Apotek
+SELECT * FROM apotek;
+
+-- 2. Menampilkan Semua Data dalam Tabel Petugas
+SELECT * FROM petugas;
+
+-- 3. Menampilkan Data Apotek Berdasarkan Lokasi
+SELECT * FROM apotek WHERE lokasi = 'Bandung';
+
+-- 4. Menampilkan Data Petugas yang Bekerja di Apotek dengan id_pj = 1
+SELECT p.nama, p.no_tlp FROM petugas p
+JOIN apotek a ON p.id = a.id_pj
+WHERE a.id_pj = 1;
+
+-- 5. Menambahkan Data Apotek Baru
+INSERT INTO apotek (id, nama, lokasi, tahun_berdiri, id_pj)
+VALUES (11, 'Apotek Sumber Rejeki', 'Bali', '2023-04-10', 2);
+
+-- 6. Mengupdate Lokasi Apotek Berdasarkan ID
+UPDATE apotek SET lokasi = 'Jakarta Barat' WHERE id = 3;
+
+-- 7. Menghapus Data Apotek Berdasarkan ID
+DELETE FROM apotek WHERE id = 5;
+
+-- 8. Menampilkan Nama dan Alamat Petugas yang Ditempatkan di Apotek 'Apotek Sehat'
+SELECT p.nama, p.alamat FROM petugas p
+JOIN apotek a ON p.id = a.id_pj
+WHERE a.nama = 'Apotek Sehat';
+
+-- 9. Menampilkan Jumlah Apotek yang Dikelola oleh Setiap Petugas
+SELECT id_pj, COUNT(*) as jumlah_apotek FROM apotek
+GROUP BY id_pj;
+
+-- 10. Menampilkan Apotek yang Berdiri setelah Tahun 2010
+SELECT * FROM apotek WHERE tahun_berdiri > '2010-01-01';
