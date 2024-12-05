@@ -1,0 +1,39 @@
+1. SELECT produk.kode_produk, produk.nama_produk, supplier.nama
+FROM produk
+JOIN supplier ON produk.id_supplier = supplier.id;
+
+2. SELECT * FROM pelanggan WHERE pelanggan.alamat LIKE '%bandung%';
+
+3. SELECT penjualan.tanggal, penjualan.keterangan, pelanggan.nama FROM penjualan
+JOIN pelanggan ON penjualan.id_pelanggan = pelanggan.id;
+
+4. SELECT penjualan.tanggal, penjualan.keterangan, pelanggan.nama FROM penjualan
+JOIN pelanggan ON penjualan.id_pelanggan = pelanggan.id
+WHERE MONTH(penjualan.tanggal) = '09';
+
+5. SELECT detail_penjualan.id_penjualan, penjualan.tanggal, detail_penjualan.id_produk, detail_penjualan.kuantitas, produk.nama_produk FROM detail_penjualan
+JOIN penjualan ON detail_penjualan.id_penjualan = penjualan.id
+JOIN produk ON detail_penjualan.id_produk = produk.id;
+
+6. SELECT detail_penjualan.id_penjualan, penjualan.tanggal, detail_penjualan.id_produk, detail_penjualan.kuantitas, produk.nama_produk FROM detail_penjualan
+JOIN penjualan ON detail_penjualan.id_penjualan = penjualan.id
+JOIN produk ON detail_penjualan.id_produk = produk.id
+WHERE MONTH(penjualan.tanggal) = '08';
+
+7. SELECT penjualan.tanggal, penjualan.keterangan, pelanggan.nama, pembayaran.total, pembayaran.metode FROM penjualan JOIN pelanggan ON penjualan.id_pelanggan = pelanggan.id JOIN pembayaran ON penjualan.id = pembayaran.id_penjualan;
+
+8. SELECT penjualan.tanggal, penjualan.keterangan, pelanggan.nama, pembayaran.total, pembayaran.metode FROM penjualan JOIN pelanggan ON penjualan.id_pelanggan = pelanggan.id JOIN pembayaran ON penjualan.id = pembayaran.id_penjualan WHERE MONTH(pembayaran.tanggal_bayar) = '09';
+
+9. SELECT metode, SUM(total) FROM pembayaran GROUP BY metode;
+
+10. SELECT tanggal_bayar, SUM(total) FROM pembayaran GROUP BY tanggal_bayar;
+
+11. SELECT * FROM penjualan JOIN pembayaran ON penjualan.id = pembayaran.id_penjualan WHERE pembayaran.tanggal_bayar is NULL;
+
+12. SELECT * FROM pelanggan WHERE id_penjualan IS NULL;
+
+13.SELECT * FROM pelanggan WHERE id_penjualan IS NOT NULL;
+
+14. SELECT * FROM penjualan JOIN pembayaran ON penjualan.id = pembayaran.id_penjualan WHERE MONTH(pembayaran.tanggal_bayar) = '09'
+
+15. SELECT * FROM pelanggan JOIN penjualan ON pelanggan.id_penjualan = penjualan.id JOIN detail_penjualan ON penjualan.id = detail_penjualan.id_penjualan JOIN produk ON detail_penjualan.id_produk = produk.id JOIN supplier ON produk.id_supplier = supplier.id WHERE supplier.nama LIKE '%cv abadi jaya%';
