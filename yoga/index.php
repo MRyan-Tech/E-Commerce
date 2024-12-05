@@ -1,3 +1,5 @@
 <?php
-echo "Halo nama saya yoga!";
+if (1) {
+    echo "Halo nama saya yoga!";
+}
 ?>
