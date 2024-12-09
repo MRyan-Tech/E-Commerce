@@ -10,7 +10,7 @@
     $rumusLuasPersegiPanjang = $panjang * $lebar;
     $rumusLuasSegitiga = 1/2 * $alas * $tinggi;
     $rumusLuasJajargenjang = $alas * $tinggi;
-    $rumusLuasLingkaran = $pi * 8 * 8;
+    $rumusLuasLingkaran = $pi * pow($jariJari, 2);
 
  echo "Luas persegi <br/>". $sisi. " X ". $sisi. " = ". $rumusLuasPersegi. "<br/><br/>";
  echo "Luas persegi panjang <br/>". $panjang. " x ". $lebar. " = ". $rumusLuasPersegiPanjang. "<br/><br/>";
