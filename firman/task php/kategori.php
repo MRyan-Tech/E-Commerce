@@ -5,6 +5,7 @@
     $rumusBMI = $beratBadan / pow(($tinggiBadan / 100), 2);
     $hasilBMI = number_format($rumusBMI, 1);
 
+    
     if ($hasilBMI < 18.5) {
         echo "Hai " . $nama . " hasil BMI anda adalah " . $hasilBMI . " anda termasuk kategori mengalami kurang berat badan";
     } elseif ($hasilBMI < 23 ) {
