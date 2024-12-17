@@ -4,7 +4,7 @@
 </head>
 
 <?php
-	include_once("config.php");
+	include_once("../config.php");
 	$isbn = $_GET['isbn'];
 
 	$buku = mysqli_query($conn, "SELECT * FROM buku WHERE isbn='$isbn'");
@@ -26,7 +26,7 @@
 ?>
  
 <body>
-	<a href="index.php">Go to Home</a>
+	<a href="../index.php">Go to Home</a>
 	<br/><br/>
  
 	<form action="update.php?isbn=<?php echo $isbn; ?>" method="post">
@@ -112,7 +112,7 @@
 
 			$result = mysqli_query($conn, "UPDATE buku SET judul = '$judul', tahun = '$tahun', id_penerbit = '$id_penerbit', id_pengarang = '$id_pengarang', id_katalog = '$id_katalog', qty_stok = '$qty_stok', harga_pinjam = '$harga_pinjam' WHERE isbn = '$isbn';");
 			
-			header("Location:index.php");
+			header("Location:../index.php");
 		}
 	?>
 </body>

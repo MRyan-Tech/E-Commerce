@@ -1,10 +1,10 @@
 <?php
-include_once("config.php");
+include_once("../config.php");
  
 $isbn = $_GET['isbn'];
  
 $result = mysqli_query($conn, "DELETE FROM buku WHERE isbn='$isbn'");
 
 // After delete redirect to Home, so that latest user list will be displayed.
-header("Location:index.php");
+header("Location:../index.php");
 ?>

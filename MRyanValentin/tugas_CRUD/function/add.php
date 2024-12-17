@@ -4,14 +4,14 @@
 </head>
 
 <?php
-	include_once("config.php");
+	include_once("../config.php");
     $penerbit = mysqli_query($conn, "SELECT * FROM penerbit");
     $pengarang = mysqli_query($conn, "SELECT * FROM pengarang");
     $katalog = mysqli_query($conn, "SELECT * FROM katalog");
 ?>conn
  
 <body>
-	<a href="index.php">Go to Home</a>
+	<a href="../index.php">Go to Home</a>
 	<br/><br/>
  
 	<form action="add.php" method="post" name="form1">
@@ -96,7 +96,7 @@
 
 			$result = mysqli_query($conn, "INSERT INTO `buku` (`isbn`, `judul`, `tahun`, `id_penerbit`, `id_pengarang`, `id_katalog`, `qty_stok`, `harga_pinjam`) VALUES ('$isbn', '$judul', '$tahun', '$id_penerbit', '$id_pengarang', '$id_katalog', '$qty_stok', '$harga_pinjam');");
 			
-			header("Location:index.php");
+			header("Location:../index.php");
 		}
 	?>
 </body>
