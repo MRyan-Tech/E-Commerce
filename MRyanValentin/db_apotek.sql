@@ -14,6 +14,13 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+<<<<<<< HEAD
+-- Data exporting was unselected.
+
+-- Data exporting was unselected.
+
+-- Data exporting was unselected.
+=======
 -- Dumping data for table eduwork.apotek: ~0 rows (approximately)
 INSERT INTO `apotek` (`id`, `nama`, `lokasi`, `tahun_berdiri`, `id_pj`) VALUES
 	(11, 'Apotek Sehat', 'surabaya', '1990-01-01', 1),
@@ -52,6 +59,7 @@ INSERT INTO `petugas_apotek` (`id`, `id_petugas`, `id_apotek`) VALUES
 	(20, 8, 18),
 	(21, 9, 19),
 	(22, 10, 20);
+>>>>>>> MRyanValentin
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
