@@ -1,7 +1,7 @@
 <?php
 include_once("connect.php");
 
-$books = mysqli_query($conn, "SELECT buku.*, nama_pengarang, nama_penerbit, katalog.nama as nama_katalog FROM buku LEFT JOIN pengarang ON pengarang.id_pengarang = buku.id_pengarang LEFT JOIN penerbit ON penerbit.id_penerbit = buku.id_penerbit LEFT JOIN katalog ON katalog.id_katalog = buku.id_katalog ORDER BY judul ASC");
+$books = mysqli_query($conn, "SELECT buku.*, nama_pengarang, nama_penerbit, tahun, katalog.nama as nama_katalog FROM buku LEFT JOIN pengarang ON pengarang.id_pengarang = buku.id_pengarang LEFT JOIN penerbit ON penerbit.id_penerbit = buku.id_penerbit LEFT JOIN katalog ON katalog.id_katalog = buku.id_katalog ORDER BY judul ASC");
 
 
 
@@ -23,7 +23,7 @@ $number = 1;
 </head>
 <body>
     <div class="container-fluid">
-        <h1 style="display: flex; justify-content: center;">Connect Database Task</h1>
+        <h1 style="display: flex; justify-content: center;">DATA BUKU PERPUSTKAAN</h1>
         <div style="d-flex justify-content-center w-50 mx-5;">
             <div class="row">
                 <div class="col my-3 d-flex justify-content-end">
@@ -44,6 +44,7 @@ $number = 1;
                             <th>NAMA PENGARANG</th>
                             <th>NAMA PENERBIT</th>
                             <th>NAMA KATALOG</th>
+                            <th>TAHUN</th>
                             <th>STOK</th>
                             <th>HARGA PINJAM</th>
                             <th>EDIT ATAU HAPUS</th>
@@ -69,13 +70,16 @@ $number = 1;
                                     <?= $data["nama_katalog"]; ?>
                                 </td>
                                 <td>
+                                    <?= $data["tahun"]; ?>
+                                </td>
+                                <td>
                                     <?= $data["qty_stok"]; ?>
                                 </td>
                                 <td>
                                     <?= $data["harga_pinjam"]; ?>
                                 </td>
                                 <td>
-                                    <a href="edit.php">
+                                    <a href="edit.php?isbn=<?=$data["isbn"]; ?>">
                                         <button type="button" class="btn btn-outline-info btn-sm">
                                             <i class="bi bi-pencil-fill"></i> Edit
                                         </button>
