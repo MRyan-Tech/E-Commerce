@@ -80,7 +80,7 @@ $number = 1;
                                             <i class="bi bi-pencil-fill"></i> Edit
                                         </button>
                                     </a>
-                                    <a href="delete.php">
+                                    <a href="delete.php?isbn=<?=$data["isbn"]; ?>">
                                     <button type="button" class="btn btn-outline-danger btn-sm">
                                         <i class="bi bi-trash3-fill"></i> Hapus
                                     </button>
