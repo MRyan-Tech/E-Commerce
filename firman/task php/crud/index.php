@@ -3,10 +3,6 @@ include_once("connect.php");
 
 $books = mysqli_query($conn, "SELECT buku.*, nama_pengarang, nama_penerbit, tahun, katalog.nama as nama_katalog FROM buku LEFT JOIN pengarang ON pengarang.id_pengarang = buku.id_pengarang LEFT JOIN penerbit ON penerbit.id_penerbit = buku.id_penerbit LEFT JOIN katalog ON katalog.id_katalog = buku.id_katalog ORDER BY judul ASC");
 
-
-
-
-
 $number = 1;
 
 ?>
