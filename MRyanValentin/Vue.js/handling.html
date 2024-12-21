@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue.js Event Handling</title>
+  <!-- Import Vue.js melalui CDN -->
+  <script src="https://unpkg.com/vue@3"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      background-color: #4CAF50;
+      color: white;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    input {
+      padding: 10px;
+      font-size: 16px;
+      margin: 10px 0;
+      width: 80%;
+      max-width: 300px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h1>Event Handling dengan Vue.js</h1>
+
+    <button @click="incrementCounter">Klik Saya ({{ counter }})</button>
+
+    <form @submit.prevent="handleSubmit">
+      <input v-model="inputValue" placeholder="Ketik sesuatu" />
+      <button type="submit">Submit</button>
+    </form>
+
+    <button @click="sayMessage('Halo Dunia!')">Klik untuk Pesan</button>
+
+    <input v-model="keyboardInput" @keyup.enter="logInput" placeholder="Tekan Enter untuk log" />
+    <p v-if="keyboardInput">Ketik: {{ keyboardInput }}</p>
+  </div>
+
+  <script>
+    const { createApp } = Vue;
+
+    createApp({
+      data() {
+        return {
+          counter: 0,           
+          inputValue: '',       
+          keyboardInput: ''   
+        };
+      },
+      methods: {
+        incrementCounter() {
+          this.counter++;
+        },
+        handleSubmit() {
+          alert(`Form Submitted dengan nilai: ${this.inputValue}`);
+          this.inputValue = ''; 
+        },
+        sayMessage(message) {
+          alert(message);
+        },
+        logInput() {
+          console.log(`Input keyboard: ${this.keyboardInput}`);
+        }
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>
