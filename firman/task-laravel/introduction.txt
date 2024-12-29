@@ -1,0 +1,8 @@
+Soal :
+1. Apa itu Laravel?
+2. Sebutkan beberapa fitur utama yang membuat laravel populer dalam pengembangan web?
+
+
+Jawaban :
+1. Laravel adalah framework PHP open source yang digunakan untuk membangun aplikasi web. Laravel dirancang untuk membuat pengembangan aplikasi web yang lebih efisien, dinamis dan powerfull
+2. Beberapa fitur yang ada pada Laravel diantaranya, template yang ringan, arsitektur MVC, Tool Artisan, Eloquent ORM, Authentication,  Data Migration
