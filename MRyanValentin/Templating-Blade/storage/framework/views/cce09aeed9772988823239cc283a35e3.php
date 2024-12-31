@@ -29,7 +29,7 @@
           <div class="iq-sidebar-logo d-flex align-items-center justify-content-between">
               <a href="../backend/index.html" class="header-logo">
               <img src="<?php echo e(asset('assets/images/logo.png')); ?>" class="img-fluid light-logo" alt="logo">
-            <h5 class="logo-title text-white ml-3 mt-1">EmailCHIMP</h5>
+            <h5 class="logo-title text-white ml-3 mt-1">E-learning</h5>
 
               </a>
               <div class="iq-menu-bt-sidebar ">
@@ -680,7 +680,7 @@
                     </ul>
                 </div>
                 <div class="col-lg-6 text-right">
-                    Copyright 2021 <a href="#">EmailCHIMP</a>
+                    Copyright 2024 <a href="#">M Ryan Bagus Valentin</a>
                 </div>
             </div>
         </div>
