@@ -18,7 +18,8 @@ Jawaban
         <p>{{ $user->name }}</p>
     @endforeach
 
-4. @include digunakan untuk menyisipkan bagian dari tampilan lain ke dalam sebuah tampilan. Ini berguna untuk menyusun ulang komponen yang sering digunakan seperti header, footer, atau sideba. contoh penggunaan: @include('header')
+4. @include digunakan untuk menyisipkan bagian dari tampilan lain ke dalam sebuah tampilan. Ini berguna untuk menyusun ulang komponen yang sering digunakan seperti header, footer, atau sideba.
+     contoh penggunaan: @include('header')
 
 5. Untuk menyematkan variabel, gunakan sintaks {{ }}.
 
