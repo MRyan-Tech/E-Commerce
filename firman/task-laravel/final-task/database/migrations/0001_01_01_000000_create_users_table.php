@@ -20,6 +20,8 @@ return new class extends Migration
             $table->boolean("is_admin")->default(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->unsignedBigInteger("storage_id")->default(null);
+            $table->foreign("storage_id")->references("id")->on("storages");
 
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
