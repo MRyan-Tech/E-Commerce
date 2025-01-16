@@ -17,11 +17,12 @@ return new class extends Migration
             $table->string('last_name');
             $table->integer('phone');
             $table->string('email')->unique();
-            $table->boolean("is_admin")->default(false);
+            $table->boolean('is_admin')->default(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->unsignedBigInteger("storage_id")->default(null);
-            $table->foreign("storage_id")->references("id")->on("storages");
+            $table->foreignId("storage_id")->constrained(
+                table: "storages", indexName: "users_storage_id"
+            );
 
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();

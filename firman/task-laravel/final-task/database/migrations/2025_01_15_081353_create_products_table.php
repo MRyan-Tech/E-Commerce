@@ -15,11 +15,14 @@ return new class extends Migration
             $table->id();
             $table->string("name");
             $table->integer("price");
-            $table->text("description");
+            $table->string("category");
+            $table->string("desccription");
+            $table->integer("qty");
+            $table->foreignId("storage_id")->constrained(
+                table: "storages", indexName: "proucts_storage_id"
+            );
+            $table->date("deleted_at")->default(null);
             $table->timestamps();
-            $table->unsignedBigInteger("storage_id")->default(null);
-            $table->foreign("storage_id")->references("id")->on("products");
-            $table->date("deleted_at")->default("null");
         });
     }
 
