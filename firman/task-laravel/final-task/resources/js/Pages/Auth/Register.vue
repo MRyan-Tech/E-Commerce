@@ -10,6 +10,8 @@ import TextInput from '@/Components/TextInput.vue';
 
 const form = useForm({
     name: '',
+    user_name: '',
+    phone: '',
     email: '',
     password: '',
     password_confirmation: '',
@@ -38,12 +40,40 @@ const submit = () => {
                     id="name"
                     v-model="form.name"
                     type="text"
-                    class="mt-1 block w-full"
+                    class="mt-1 block w-full h-8"
                     required
                     autofocus
                     autocomplete="name"
                 />
                 <InputError class="mt-2" :message="form.errors.name" />
+            </div>
+
+            <div>
+                <InputLabel for="user_name" value="User Name" />
+                <TextInput
+                    id="user_name"
+                    v-model="form.user_name"
+                    type="text"
+                    class="mt-1 block w-full h-8"
+                    required
+                    autofocus
+                    autocomplete="user_name"
+                />
+                <InputError class="mt-2" :message="form.errors.user_name" />
+            </div>
+
+            <div>
+                <InputLabel for="phone" value="Phone Number" />
+                <TextInput
+                    id="phone"
+                    v-model="form.phone"
+                    type="text"
+                    class="mt-1 block w-full h-8"
+                    required
+                    autofocus
+                    autocomplete="phone"
+                />
+                <InputError class="mt-2" :message="form.errors.phone" />
             </div>
 
             <div class="mt-4">
@@ -52,7 +82,7 @@ const submit = () => {
                     id="email"
                     v-model="form.email"
                     type="email"
-                    class="mt-1 block w-full"
+                    class="mt-1 block w-full h-8"
                     required
                     autocomplete="username"
                 />
@@ -65,7 +95,7 @@ const submit = () => {
                     id="password"
                     v-model="form.password"
                     type="password"
-                    class="mt-1 block w-full"
+                    class="mt-1 block w-full h-8"
                     required
                     autocomplete="new-password"
                 />
@@ -78,7 +108,7 @@ const submit = () => {
                     id="password_confirmation"
                     v-model="form.password_confirmation"
                     type="password"
-                    class="mt-1 block w-full"
+                    class="mt-1 block w-full h-8"
                     required
                     autocomplete="new-password"
                 />
