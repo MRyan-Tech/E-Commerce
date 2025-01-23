@@ -15,19 +15,19 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('user_name');
-            $table->integer('phone');
+            $table->string('phone');
             $table->string('email')->unique();
             $table->boolean('is_admin')->default(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->foreignId("storage_id")->constrained(
+            $table->foreignId("storage_id")->nullable()->constrained(
                 table: "storages", indexName: "users_storage_id"
             );
 
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
-            $table->date("deleted_at")->default(null);
+            $table->date("deleted_at")->nullable();
             $table->timestamps();
         });
 
