@@ -1,7 +1,10 @@
 <template>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary mb-4">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img width="60rem" src="../../public/assets/img/mamanshop.png" alt="">
+                <h2>MamanShop</h2>
+            </a>
             <button
                 class="navbar-toggler"
                 type="button"
@@ -30,15 +33,15 @@
                             data-bs-toggle="dropdown"
                             aria-expanded="false"
                         >
-                            Dropdown
+                            Filter
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Men</a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="#"
-                                    >Another action</a
+                                    >Women</a
                                 >
                             </li>
                             <li><hr class="dropdown-divider" /></li>
@@ -49,15 +52,14 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" aria-disabled="true"
-                            >Disabled</a
-                        >
-                    </li>
                 </ul>
                 <div class=" d-flex">
-                    <button type="button" class="btn btn-primary me-2">Daftar</button>
-                    <button type="button" class="btn btn-primary">Masuk</button>
+                    <router-link to="/regist">
+                        <button type="button" class="btn btn-primary me-2">Daftar</button>
+                    </router-link>
+                    <router-link to="/login">
+                        <button type="button" class="btn btn-primary">Masuk</button>
+                    </router-link>
                 </div>
             </div>
         </div>
