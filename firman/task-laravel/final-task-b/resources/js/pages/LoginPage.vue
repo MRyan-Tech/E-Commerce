@@ -2,7 +2,7 @@
     <div class=" container-fluid">
         <div class="row">
             <div class="col d-flex justify-content-center">
-                <div class=" border border-1 border-black w-">
+                <div class=" border border-1 border-black w-50">
                     <form class=" p-4">
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label"
@@ -38,13 +38,20 @@
                                 >Check me out</label
                             >
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <router-link>
+                            <button type="submit" class="btn btn-primary w-100">Submit</button>
+                        </router-link>
+                        <router-link to="/">
+                            <button type="button" class="btn btn-primary mt-4 w-100">kembali ke beranda</button>
+                        </router-link>
+                        <div class="d-flex justify-content-center">
+                            <p>Belum mempunyai akun? Silahkan daftar 
+                                <router-link to="/auth/regist">Di sini</router-link>
+                            </p>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    <router-link to="/">
-        <button type="button" class="btn btn-primary mt-4">kembali ke home</button>
-    </router-link>
 </template>

@@ -1,8 +1,9 @@
 <template>
-    <div class="container-fluid">
+    <div class="container-fluid mt-3">
         <div class="row">
             <div class="col d-flex justify-content-center">
                 <div class="border border-1 border-black w-50 rounded">
+                    <!-- <h4 class=" d-flex justify-content-center mt-4">Regist</h4> -->
                     <form class="p-4">
                         <div class=" mb-3">
                             <label for="name" class=" form-label">Nama</label>
@@ -56,9 +57,9 @@
                             </button>
                         </router-link>
                     </form>
-                    <div class=" ps-3 d-flex justify-content-center">
+                    <div class=" d-flex justify-content-center">
                         <p>Sudah punya akun? Silahkan Masuk 
-                            <router-link to="/login">Di sini</router-link>
+                            <router-link to="/auth/login">Di sini</router-link>
                         </p>
                     </div>
                 </div>

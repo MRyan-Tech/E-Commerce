@@ -1,15 +1,24 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Dashboard from "./layouts/Dashboard.vue";
+// import Dashboard from "./layouts/Dashboard.vue";
+import Auth from "./layouts/authentication/Auth.vue";
+import Landing from "./layouts/landing/Landing.vue";
 // import Landing from "./pages/Landing.vue";
 import Product from "./pages/Product.vue";
 import LoginPage from "./pages/LoginPage.vue";
 import Regist from "./pages/Regist.vue";
 
 const routes = [
-    { path: "/", component: Dashboard},
-    { path: "/product", component: Product},
-    { path: "/login", component: LoginPage},
-    { path: "/regist", component: Regist},
+    { path: "/", component: Landing,
+        children: [
+            { path: "product", component: Product},
+        ],
+    },
+    { path: "/auth", component: Auth,
+        children: [
+            { path: "login", component: LoginPage},
+            { path: "regist", component: Regist},
+        ],
+    },
 ];
 
 const router = createRouter({
