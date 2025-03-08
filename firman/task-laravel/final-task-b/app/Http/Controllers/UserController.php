@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
-use app\Models\User;
-use illuminate\Support\Facades\Hash;
 // use illuminate\Support\Facades\Validator;
 use illuminate\Support\Facades\Password;
 use illuminate\Support\Facades\Auth;
 use illuminate\Validation\ValidationException;
 use Exception;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\Sanctum;
 
 
@@ -36,11 +36,11 @@ class UserController extends Controller
             ]);
 
             $token = $user->createToken("auth_token")->plainTextToken;
-            return response()->json(["message" => "registrasi berhasil", $user, "token" => $token], 201);
+            return response()->json(["message" => "registrasi berhasil", "data" => $user, "token" => $token], 201);
         } catch (ValidationException $e) {
             return response()->json(["error" => $e->validator->errors()], 422);
         } catch (Exception $e) {
-            return response()->json(["error" => "internal server error"], 500);
+            return response()->json(["error" => $e->getMessage()], 500);
         }
     }
 

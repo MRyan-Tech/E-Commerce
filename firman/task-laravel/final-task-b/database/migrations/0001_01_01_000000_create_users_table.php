@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->date("deleted_at")->default(null);
+            $table->timestamp("deleted_at")->default('CURRENT_TIMESTAMP');
             $table->rememberToken();
             $table->timestamps();
         });
