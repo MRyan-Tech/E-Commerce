@@ -4,8 +4,122 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use app\Models\User;
+use illuminate\Support\Facades\Hash;
+// use illuminate\Support\Facades\Validator;
+use illuminate\Support\Facades\Password;
+use illuminate\Support\Facades\Auth;
+use illuminate\Validation\ValidationException;
+use Exception;
+use Laravel\Sanctum\Sanctum;
+
 
 class UserController extends Controller
 {
-    //
+    public function register(Request $request)
+    {
+        try {
+
+            $request->validate([
+                "name" => "required|string|max:100",
+                "user_name" => "required|string|max:255|unique:users",
+                "phone" => ["required", "max:13", "regex:/^(\+62|62)?[\s-]?0?8[1-9]{1}\d{1}[\s-]?\d{4}[\s-]?\d{2,5}$/"],
+                "email" => "required|email|unique:users",
+                "password" => ['required', 'string', 'min:6', 'regex:/^(?=.*[A-Z])(?=.*\d).{6,}$/'],
+            ]);
+
+            $user = User::create([
+                "name" => $request->name,
+                "user_name" => $request->user_name,
+                "phone" => $request->phone,
+                "email" => $request->email,
+                "password" => Hash::make($request->password)
+            ]);
+
+            $token = $user->createToken("auth_token")->plainTextToken;
+            return response()->json(["message" => "registrasi berhasil", $user, "token" => $token], 201);
+        } catch (ValidationException $e) {
+            return response()->json(["error" => $e->validator->errors()], 422);
+        } catch (Exception $e) {
+            return response()->json(["error" => "internal server error"], 500);
+        }
+    }
+
+    public function allUser()
+    {
+        return response()->json(User::all());
+    }
+
+    public function user($id)
+    {
+        $user = User::findOrfail($id);
+        return response()->json($user);
+    }
+
+    public function updateUser(Request $request, $id)
+    {
+        try {
+            $user = User::findOrFail($id);
+
+
+            $request->validate([
+                'name' => 'sometimes|required|string|max:255',
+                'user_name' => 'sometimes|required|string|max:255|unique:users,user_name,' . $user->id,
+                'phone' => ['sometimes', 'required', 'regex:/^(\+62|62)?[\s-]?0?8[1-9]{1}\d{1}[\s-]?\d{4}[\s-]?\d{2,5}$/'],
+                'email' => 'sometimes|required|email|unique:users,email,' . $user->id,
+                'password' => ['sometimes', 'required', 'string', 'min:6', 'regex:/^(?=.*[A-Z])(?=.*\d).{6,}$/'],
+            ]);
+
+            $user->update([
+                "name" => $request->name ?? $user->name,
+                "user_name" => $request->user_name ?? $user->User_name,
+                "phone" => $request->phone ?? $user->phone,
+                "email" => $request->email ?? $user->email,
+                "password" => $request->password ? Hash::make($request->password) : $user->password,
+            ]);
+
+            return response()->json($user);
+        } catch (Exception $e) {
+            return response()->json(["error" => $e->getMessage()], 400);
+        }
+    }
+
+    public function forgotpassword(Request $request)
+    {
+        try {
+            $request->validate(["email" => "required|email|exist:users,email"]);
+            $status = Password::sendResetLink($request->only("email"));
+            return response()->json(["message" => __($status)]);
+        } catch (Exception $e) {
+            return response()->json(["error" => $e->getMessage()], 400);
+        }
+    }
+
+    public function login(Request $request)
+    {
+        try {
+            $request->validate([
+                "email" => "required|email",
+                "password" => "required|string",
+            ]);
+
+            $user = User::where("email", $request->email)->first();
+
+            if (!$user || !Hash::check($request->password, $user->password)) {
+                return response()->json(["message" => "Email atau password salah"], 401);
+            }
+
+            $token = $user->createToken("auth_token")->plainTextToken;
+
+
+            return response()->json(["message" => "Login berhasil", "user" => $user, "token" => $token]);
+        } catch (Exception $e) {
+            return response()->json(["error" => $e->getMessage()], 400);
+        }
+    }
+
+    public function logout(Request $request)
+    {
+        $request->user()->tokens()->delete();
+        return response()->json(["message" => "Logout berhasil"]);
+    }
 }
