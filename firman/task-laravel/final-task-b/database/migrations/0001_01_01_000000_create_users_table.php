@@ -16,11 +16,11 @@ return new class extends Migration
             $table->string('name');
             $table->string('user_name');
             $table->string('phone');
-            $table->boolean('is_admin')->default(false);
+            $table->string('role')->default("customer");
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->date("deleted_at")->default(null);
+            $table->timestamp("deleted_at")->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
