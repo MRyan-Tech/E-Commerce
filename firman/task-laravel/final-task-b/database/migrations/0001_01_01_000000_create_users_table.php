@@ -20,7 +20,11 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+<<<<<<< HEAD
             $table->timestamp("deleted_at")->nullable();
+=======
+            $table->timestamp("deleted_at")->default('CURRENT_TIMESTAMP');
+>>>>>>> refs/remotes/origin/mamantube
             $table->rememberToken();
             $table->timestamps();
         });
