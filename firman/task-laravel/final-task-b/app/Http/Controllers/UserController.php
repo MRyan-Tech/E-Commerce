@@ -4,14 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-// use illuminate\Support\Facades\Validator;
 use illuminate\Support\Facades\Password;
-use illuminate\Support\Facades\Auth;
 use illuminate\Validation\ValidationException;
 use Exception;
 use Illuminate\Support\Facades\Hash;
-use Laravel\Sanctum\Sanctum;
-
 
 class UserController extends Controller
 {
@@ -46,7 +42,12 @@ class UserController extends Controller
 
     public function allUser()
     {
-        return response()->json(User::all());
+        try {
+            $users = User::all();
+            return response()->json(["data" => $users], 200);
+        } catch (Exception $e) {
+            return response()->json(["error" => $e->getMessage()], 400);
+        }
     }
 
     public function user($id)
@@ -119,7 +120,11 @@ class UserController extends Controller
 
     public function logout(Request $request)
     {
-        $request->user()->tokens()->delete();
-        return response()->json(["message" => "Logout berhasil"]);
+        try {
+            $request->user()->tokens()->delete();
+            return response()->json(["message" => "Logout berhasil"]);
+        } catch (Exception $e) {
+            return response()->json(["error" => $e->getMessage()], 400);
+        }
     }
 }
