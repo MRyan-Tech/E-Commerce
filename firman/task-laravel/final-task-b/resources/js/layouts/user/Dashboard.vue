@@ -1,5 +1,15 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
+
+const handleLogout = () => {
+    localStorage.clear()
+
+    router.push("/")
+}
+
 
 </script>
 
@@ -9,7 +19,7 @@ import { RouterLink } from 'vue-router';
             <a class="navbar-brand d-flex align-items-center" href="#">
                 <img
                     width="60rem"
-                    src="../../../public/assets/img/mamanshop.png"
+                    src="../../../../public/assets/img/mamanshop.png"
                     alt=""
                 />
                 <h2>MamanShop</h2>
@@ -35,6 +45,14 @@ import { RouterLink } from 'vue-router';
                             >Product</router-link
                         >
                     </li>
+                    <li class="nav-item">
+                        <router-link class="nav-link" to="/contact"
+                            >Hubungi Kami</router-link
+                        >
+                    </li>
+                    
+                </ul>
+                <div class="d-flex">
                     <li class="nav-item dropdown">
                         <a
                             class="nav-link dropdown-toggle"
@@ -43,29 +61,18 @@ import { RouterLink } from 'vue-router';
                             data-bs-toggle="dropdown"
                             aria-expanded="false"
                         >
-                            Filter
+                            Nama Pengguna
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a class="dropdown-item" href="#">Men</a>
+                                <a class="dropdown-item" href="#">Pembelian</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="#">Women</a>
+                                <a class="dropdown-item" href="#" @click="handleLogout
+                                ">Logout</a>
                             </li>
                         </ul>
                     </li>
-                </ul>
-                <div class="d-flex">
-                    <RouterLink to="/auth/regist">
-                        <button type="button" class="btn btn-primary me-2">
-                            Daftar
-                        </button>
-                    </RouterLink>
-                    <router-link to="/auth/login">
-                        <button type="button" class="btn btn-primary">
-                            Masuk
-                        </button>
-                    </router-link>
                 </div>
             </div>
         </div>

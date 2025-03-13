@@ -1,14 +1,45 @@
+<script setup>
+import api from '../api.js';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+
+
+const router = useRouter();
+const token = ref(localStorage.getItem("token") || "");
+
+
+const form = ref({
+    email: "",
+    password: "",
+});
+
+const handleLogin = async () => {
+    try {
+        const res = await api.post("login", form.value);
+        token.value = res.data.token;
+        localStorage.setItem("token", token.value);
+        router.push("/dashboard")        
+    } catch (error) {
+        console.error(error)
+    }
+};
+
+
+</script>
+
 <template>
     <div class=" container-fluid">
         <div class="row">
             <div class="col d-flex justify-content-center">
                 <div class=" border border-1 border-black w-50">
-                    <form class=" p-4">
+                    <form @submit.prevent="handleLogin" class=" p-4">
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label"
                                 >Email address</label
                             >
                             <input
+                                v-model="form.email"
                                 type="email"
                                 class="form-control"
                                 id="exampleInputEmail1"
@@ -23,24 +54,13 @@
                                 >Password</label
                             >
                             <input
+                                v-model="form.password"
                                 type="password"
                                 class="form-control"
                                 id="exampleInputPassword1"
                             />
-                        </div>
-                        <div class="mb-3 form-check">
-                            <input
-                                type="checkbox"
-                                class="form-check-input"
-                                id="exampleCheck1"
-                            />
-                            <label class="form-check-label" for="exampleCheck1"
-                                >Check me out</label
-                            >
-                        </div>
-                        <router-link>
-                            <button type="submit" class="btn btn-primary w-100">Submit</button>
-                        </router-link>
+                        </div>                        
+                        <button type="submit" class="btn btn-primary w-100">Submit</button>
                         <router-link to="/">
                             <button type="button" class="btn btn-primary mt-4 w-100">kembali ke beranda</button>
                         </router-link>

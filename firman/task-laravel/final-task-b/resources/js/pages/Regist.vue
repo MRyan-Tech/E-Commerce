@@ -1,23 +1,98 @@
+<script setup>
+import { ref } from "vue";
+import api from "../api.js";
+import { useRouter } from "vue-router";
+
+const form = ref({
+    name: "",
+    user_name: "",
+    phone: "",
+    email: "",
+    password: "",
+});
+const token = ref(localStorage.getItem("token") || "");
+const router = useRouter();
+
+const handleRegist = async () => {try {
+        const res = await api.post("/register", form.value);
+        token.value = res.data.token;
+        localStorage.setItem("token", token.value);
+        router.push({ name: "/dashboard" });
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+// export default {
+//     data() {
+//         return {
+//             name: "",
+//             user_name: "",
+//             email: "",
+//             phone: "",
+//             password: "",
+//         };
+//     },
+//     methods: {
+//         async handleRegist() {
+//             try {
+//                 const response = await api.post("/register", {
+//                     name: this.name,
+//                     user_name: this.user_name,
+//                     email: this.email,
+//                     phone: this.phone,
+//                     password: this.password,
+//                 });
+
+//                 alert("Registrasi berhasil");
+//                 this.$router.push("/auth/login")
+//             } catch (error) {
+//                 console.error("registrasi gagal: " + error.response.data.message)
+//             }
+//         }
+//     }
+// }
+</script>
+
 <template>
     <div class="container-fluid mt-3">
         <div class="row">
             <div class="col d-flex justify-content-center">
                 <div class="border border-1 border-black w-50 rounded">
                     <!-- <h4 class=" d-flex justify-content-center mt-4">Regist</h4> -->
-                    <form class="p-4">
-                        <div class=" mb-3">
-                            <label for="name" class=" form-label">Nama</label>
-                            <input type="text" class="form-control" id="name" />
+                    <form @submit.prevent="handleRegist" class="p-4">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nama</label>
+                            <input
+                                v-model="form.name"
+                                type="text"
+                                class="form-control"
+                                id="name"
+                            />
                         </div>
 
-                        <div class=" mb-3">
-                            <label for="user-name" class=" form-label">Nama Pengguna</label>
-                            <input type="text" class="form-control" id="user-name" />
+                        <div class="mb-3">
+                            <label for="user-name" class="form-label"
+                                >Nama Pengguna</label
+                            >
+                            <input
+                                v-model="form.user_name"
+                                type="text"
+                                class="form-control"
+                                id="user-name"
+                            />
                         </div>
 
-                        <div class=" mb-3">
-                            <label for="phone-number" class=" form-label">Nomor Handphone</label>
-                            <input type="text" class="form-control" id="phone-number" />
+                        <div class="mb-3">
+                            <label for="phone-number" class="form-label"
+                                >Nomor Handphone</label
+                            >
+                            <input
+                                v-model="form.phone"
+                                type="text"
+                                class="form-control"
+                                id="phone-number"
+                            />
                         </div>
 
                         <div class="mb-3">
@@ -25,6 +100,7 @@
                                 Email address
                             </label>
                             <input
+                                v-model="form.email"
                                 type="email"
                                 class="form-control"
                                 id="exampleInputEmail1"
@@ -41,24 +117,26 @@
                                 >Password</label
                             >
                             <input
+                                v-model="form.password"
                                 type="password"
                                 class="form-control"
                                 id="exampleInputPassword1"
                             />
                         </div>
+                        <button type="submit" class="btn btn-primary w-100">
+                            Submit
+                        </button>
                         <router-link to="/">
-                            <button type="submit" class="btn btn-primary w-100">
-                                Submit
-                            </button>
-                        </router-link>
-                        <router-link to="/">
-                            <button type="submit" class="btn btn-primary w-100 mt-3">
+                            <button
+                                class="btn btn-primary w-100 mt-3"
+                            >
                                 Kembali ke beranda
                             </button>
                         </router-link>
                     </form>
-                    <div class=" d-flex justify-content-center">
-                        <p>Sudah punya akun? Silahkan Masuk 
+                    <div class="d-flex justify-content-center">
+                        <p>
+                            Sudah punya akun? Silahkan Masuk
                             <router-link to="/auth/login">Di sini</router-link>
                         </p>
                     </div>
