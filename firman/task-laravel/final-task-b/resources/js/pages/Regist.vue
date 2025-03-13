@@ -13,15 +13,45 @@ const form = ref({
 const token = ref(localStorage.getItem("token") || "");
 const router = useRouter();
 
-const register = async () => {try {
+const handleRegist = async () => {try {
         const res = await api.post("/register", form.value);
         token.value = res.data.token;
         localStorage.setItem("token", token.value);
-        router.push({ name: "/" });
+        router.push({ name: "/dashboard" });
     } catch (error) {
         console.error(error);
     }
 };
+
+// export default {
+//     data() {
+//         return {
+//             name: "",
+//             user_name: "",
+//             email: "",
+//             phone: "",
+//             password: "",
+//         };
+//     },
+//     methods: {
+//         async handleRegist() {
+//             try {
+//                 const response = await api.post("/register", {
+//                     name: this.name,
+//                     user_name: this.user_name,
+//                     email: this.email,
+//                     phone: this.phone,
+//                     password: this.password,
+//                 });
+
+//                 alert("Registrasi berhasil");
+//                 this.$router.push("/auth/login")
+//             } catch (error) {
+//                 console.error("registrasi gagal: " + error.response.data.message)
+//             }
+//         }
+//     }
+// }
 </script>
 
 <template>
@@ -30,7 +60,7 @@ const register = async () => {try {
             <div class="col d-flex justify-content-center">
                 <div class="border border-1 border-black w-50 rounded">
                     <!-- <h4 class=" d-flex justify-content-center mt-4">Regist</h4> -->
-                    <form @submit.prevent="register" class="p-4">
+                    <form @submit.prevent="handleRegist" class="p-4">
                         <div class="mb-3">
                             <label for="name" class="form-label">Nama</label>
                             <input
@@ -93,14 +123,11 @@ const register = async () => {try {
                                 id="exampleInputPassword1"
                             />
                         </div>
-                        <router-link to="/">
-                            <button type="submit" class="btn btn-primary w-100">
-                                Submit
-                            </button>
-                        </router-link>
+                        <button type="submit" class="btn btn-primary w-100">
+                            Submit
+                        </button>
                         <router-link to="/">
                             <button
-                                type="submit"
                                 class="btn btn-primary w-100 mt-3"
                             >
                                 Kembali ke beranda
