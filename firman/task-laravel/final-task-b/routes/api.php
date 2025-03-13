@@ -8,12 +8,9 @@ use Illuminate\Support\Facades\Route;
 // Route untuk registrasi dan login
 Route::post("/register", [UserController::class, "register"]);
 Route::post("/login", [UserController::class, "login"]);
-<<<<<<< HEAD
-=======
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    // Route::get('/user', [UserController::class, 'index']);
-    // Route::get('/logout', [UserController::class, 'index']);
+    Route::get('/users', [UserController::class, 'allUser']);
 
     Route::prefix('products')->group(function () {
         Route::get('/', [ProductController::class, 'data']);
@@ -25,14 +22,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 });
 
->>>>>>> refs/remotes/origin/mamantube
 
 // Route yang memerlukan autentikasi
-Route::middleware(['auth:sanctum'])->group(function () {
-    Route::get("/users", [UserController::class, "allUser"]);   
+// Route::middleware(['auth:sanctum'])->group(function () {
+//     Route::get("/users", [UserController::class, "allUser"]);   
 
-    Route::prefix("product")->group(function () {
-        Route::get("/", [ProductController::class, "allProducts"]);
-        Route::post("/addProduct", [ProductController::class, "addProduct"]);
-    });
-});
+//     Route::prefix("product")->group(function () {
+//         Route::get("/", [ProductController::class, "allProducts"]);
+//         Route::post("/addProduct", [ProductController::class, "addProduct"]);
+//     });
+// });

@@ -4,19 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-<<<<<<< HEAD
-=======
-// use illuminate\Support\Facades\Validator;
->>>>>>> refs/remotes/origin/mamantube
 use illuminate\Support\Facades\Password;
 use illuminate\Validation\ValidationException;
 use Exception;
 use Illuminate\Support\Facades\Hash;
-<<<<<<< HEAD
-=======
-use Laravel\Sanctum\Sanctum;
-
->>>>>>> refs/remotes/origin/mamantube
 
 class UserController extends Controller
 {
