@@ -52,8 +52,15 @@ class UserController extends Controller
 
     public function user($id)
     {
-        $user = User::findOrfail($id);
-        return response()->json($user);
+        try{
+            $user = User::findOrfail($id);
+    
+            return response()->json(["Data" => $user]);
+
+        } catch (Exception $e) {
+            return response()->json(["message" => $e->getMessage()]);
+        }
+
     }
 
     public function updateUser(Request $request, $id)
@@ -66,19 +73,19 @@ class UserController extends Controller
                 'name' => 'sometimes|required|string|max:255',
                 'user_name' => 'sometimes|required|string|max:255|unique:users,user_name,' . $user->id,
                 'phone' => ['sometimes', 'required', 'regex:/^(\+62|62)?[\s-]?0?8[1-9]{1}\d{1}[\s-]?\d{4}[\s-]?\d{2,5}$/'],
-                'email' => 'sometimes|required|email|unique:users,email,' . $user->id,
-                'password' => ['sometimes', 'required', 'string', 'min:6', 'regex:/^(?=.*[A-Z])(?=.*\d).{6,}$/'],
+                // 'email' => 'sometimes|required|email|unique:users,email,' . $user->id,
+                // 'password' => ['sometimes', 'required', 'string', 'min:6', 'regex:/^(?=.*[A-Z])(?=.*\d).{6,}$/'],
             ]);
 
             $user->update([
                 "name" => $request->name ?? $user->name,
                 "user_name" => $request->user_name ?? $user->User_name,
                 "phone" => $request->phone ?? $user->phone,
-                "email" => $request->email ?? $user->email,
-                "password" => $request->password ? Hash::make($request->password) : $user->password,
+                // "email" => $request->email ?? $user->email,
+                // "password" => $request->password ? Hash::make($request->password) : $user->password,
             ]);
 
-            return response()->json($user);
+            return response()->json(["message" => "Data berhasil diperbaharui", "data" => $user]);
         } catch (Exception $e) {
             return response()->json(["error" => $e->getMessage()], 400);
         }
