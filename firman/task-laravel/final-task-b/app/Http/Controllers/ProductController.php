@@ -5,30 +5,35 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-    public function addProdutc(Request $request) 
+    public function addProduct(Request $request) 
     {
         try {
             $request->validate([
                 "product_name" => "required|string|max:100",
                 "stock" => "required|integer",
-                "price" => "required|float",
+                "price" => "required|integer",
                 "description" => "required|string",
                 "category" => "required|string",
                 "image" => "required|image|mimes:jpeg,png,jpg|max:2064",
 
             ]);
 
+            $imagePath = $request->file("image")->store("products", "public");
+
             $product = Product::create([
                 "product_name" => $request->product_name,
-                "stoct" => $request->stock,
+                "stock" => $request->stock,
                 "price" => $request->price,
                 "description" => $request->description,
                 "category" => $request->category,
-                "image" => $request->image,
+                "image" => $imagePath,
             ]);
+
+            return response()->json(["message" => "product berhasil ditambahkan", "data" => $product], 201);
         } catch (Exception $e) {
             return response()->json(["error" => $e->getMessage()]);
         };
@@ -37,14 +42,77 @@ class ProductController extends Controller
 
         public function allProducts() {
             try {
-                $products = Product::all();
+                $products = Product::whereNull("deleted_at")->get();
                 return response()->json(["data" => $products], 200);
             } catch (Exception $e) {
                 return response()->json(["message" => $e->getMessage()], 400);
 
             }
+
+        }
         
-    }
+        public function product($id) {
+            try {
+                $product = Product::where("id", $id)->whereNull("deleted_at")->firstOrFail();
+
+                if(!$product) {
+                    return response()->json(["message" => "Produk tidak ditemukan"]);
+                }
+
+                return response()->json(["data" => $product], 200);
+            } catch (Exception $e) {
+                return response()->json(["message" => $e->getMessage()], 400);
+            }
+
+        }
+
+        public function updateProduct(Request $request, $id) {
+            dd([
+                'all' => $request->all(),
+                'input' => $request->input(),
+                'file' => $request->file('image')
+            ]);
+            try {
+                $product = Product::findOrFail($id);
+                $request->validate([
+                    "product_name" => "sometimes|string|max:100",
+                    "stock" => "sometimes|integer",
+                    "price" => "sometimes|integer",
+                    "description" => "sometimes|string",
+                    "category" => "sometimes|string",
+                    "image" => "sometimes|image|mimes:jpeg,png,jpg|max:2064",
+                ]);
+
+                if (!$product) {
+                    return response()->json(["message" => "Produk tidak ditemukan"], 404);
+                }
+
+                if ($request->hasFile("image")) {
+                    // Hapus gambar lama jika ada
+                    if ($product->image) {
+                        Storage::disk('public')->delete($product->image);
+                    }
+        
+                    $imagePath = $request->file("image")->store("products", "public");
+        
+                    $product->image = $imagePath;
+                }
+        
+                $product->update([
+                    "product_name" => $request->product_name,
+                    "stock" => $request->stock,
+                    "price" => $request->price,
+                    "description" => $request->description,
+                    "category" => $request->category,
+                ]);        
+
+
+                return response()->json(["message" => "Data produk diperbaharui", "data" => $product], 200);
+            } catch (Exception $e) {
+                return response()->json(["message" => $e->getMessage()], 400);
+            }
+
+        }
 
         
     // public function store(Request $request)
