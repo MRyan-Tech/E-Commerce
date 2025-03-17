@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-    public function addProduct(Request $request) 
+    public function addProduct(Request $request)
     {
         try {
             $request->validate([
@@ -37,84 +37,70 @@ class ProductController extends Controller
         } catch (Exception $e) {
             return response()->json(["error" => $e->getMessage()]);
         };
+    }
 
+    public function allProducts(Request $request)
+    {
+        try {
+            $products = Product::whereNull("deleted_at")->paginate(2);
+
+            return response()->json(["data" => $products], 200);
+        } catch (Exception $e) {
+            return response()->json(["message" => $e->getMessage()], 400);
         }
+    }
 
-        public function allProducts() {
-            try {
-                $products = Product::whereNull("deleted_at")->get();
-                return response()->json(["data" => $products], 200);
-            } catch (Exception $e) {
-                return response()->json(["message" => $e->getMessage()], 400);
+    public function product($id)
+    {
+        try {
+            $product = Product::where("id", $id)->whereNull("deleted_at")->firstOrFail();
 
+            if (!$product) {
+                return response()->json(["message" => "Produk tidak ditemukan"]);
             }
 
+            return response()->json(["data" => $product], 200);
+        } catch (Exception $e) {
+            return response()->json(["message" => $e->getMessage()], 400);
         }
-        
-        public function product($id) {
-            try {
-                $product = Product::where("id", $id)->whereNull("deleted_at")->firstOrFail();
+    }
 
-                if(!$product) {
-                    return response()->json(["message" => "Produk tidak ditemukan"]);
-                }
-
-                return response()->json(["data" => $product], 200);
-            } catch (Exception $e) {
-                return response()->json(["message" => $e->getMessage()], 400);
-            }
-
-        }
-
-        public function updateProduct(Request $request, $id) {
-            dd([
-                'all' => $request->all(),
-                'input' => $request->input(),
-                'file' => $request->file('image')
+    public function updateProduct(Request $request, $id)
+    {
+        try {
+            $request->validate([
+               "product_name" => "sometimes|required|string|max:100",
+                "stock" => "sometimes|required|integer",
+                "price" => "sometimes|required|integer",
+                "description" => "sometimes|required|string",
+                "category" => "sometimes|required|string",
+                "image" => "sometimes|image|mimes:jpeg,png,jpg|max:2064",
             ]);
-            try {
-                $product = Product::findOrFail($id);
-                $request->validate([
-                    "product_name" => "sometimes|string|max:100",
-                    "stock" => "sometimes|integer",
-                    "price" => "sometimes|integer",
-                    "description" => "sometimes|string",
-                    "category" => "sometimes|string",
-                    "image" => "sometimes|image|mimes:jpeg,png,jpg|max:2064",
-                ]);
 
-                if (!$product) {
-                    return response()->json(["message" => "Produk tidak ditemukan"], 404);
-                }
+            $product = Product::findOrFail($id);
 
-                if ($request->hasFile("image")) {
-                    // Hapus gambar lama jika ada
-                    if ($product->image) {
-                        Storage::disk('public')->delete($product->image);
-                    }
-        
-                    $imagePath = $request->file("image")->store("products", "public");
-        
-                    $product->image = $imagePath;
-                }
-        
-                $product->update([
-                    "product_name" => $request->product_name,
-                    "stock" => $request->stock,
-                    "price" => $request->price,
-                    "description" => $request->description,
-                    "category" => $request->category,
-                ]);        
+            $product->update([
+                "product_name" => $request->product_name,
+                "stock" => $request->stock,
+                "price" => $request->price,
+                "description" => $request->description,
+                "category" => $request->category,
+            ]);
 
-
-                return response()->json(["message" => "Data produk diperbaharui", "data" => $product], 200);
-            } catch (Exception $e) {
-                return response()->json(["message" => $e->getMessage()], 400);
+            if ($request->hasFile("image")) {
+                $imagePath = $request->file("image")->store("products", "public");
+                $product->image = $imagePath;
             }
 
-        }
+            $product->save();
 
-        
+            return response()->json(["message" => "Data produk diperbaharui", "data" => $product], 200);
+        } catch (Exception $e) {
+            return response()->json(["message" => $e->getMessage()], 400);
+        }
+    }
+
+
     // public function store(Request $request)
     // {
     //     $request->validate([
