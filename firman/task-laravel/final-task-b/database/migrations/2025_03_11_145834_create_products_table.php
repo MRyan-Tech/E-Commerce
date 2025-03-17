@@ -15,10 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string("product_name");
             $table->integer("stock");
-            $table->float("price");
+            $table->integer("price");
             $table->string("description");
             $table->string("category");
             $table->string("image");
+            $table->timestamp("deleted_at")->nullable();
             $table->timestamp("deleted_at")->nullable();
             $table->timestamps();
         });
