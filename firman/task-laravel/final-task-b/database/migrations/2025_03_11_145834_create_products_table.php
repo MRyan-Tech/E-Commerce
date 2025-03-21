@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string("category");
             $table->string("image");
             $table->timestamp("deleted_at")->nullable();
-            $table->timestamp("deleted_at")->nullable();
             $table->timestamps();
         });
     }
