@@ -7,13 +7,15 @@ import Product from "./pages/Product.vue";
 import LoginPage from "./pages/LoginPage.vue";
 import Regist from "./pages/Regist.vue";
 import Dashboard from "./layouts/user/Dashboard.vue";
+import Beranda from "./pages/Beranda.vue";
 
 
 
 const routes = [
     { path: "/", component: Landing,
         children: [
-            { path: "product", component: Product},
+            { path: "", component: Beranda},
+            {path: "/products", component: Product},
         ],
     },
     { path: "/auth", component: Auth,

@@ -31,7 +31,7 @@ import { RouterLink } from 'vue-router';
                         <router-link class="nav-link" to="/">Home</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link class="nav-link" to="/product"
+                        <router-link class="nav-link" to="/products"
                             >Product</router-link
                         >
                     </li>
