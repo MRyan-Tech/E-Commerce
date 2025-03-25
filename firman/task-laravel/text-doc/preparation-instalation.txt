@@ -1,0 +1,62 @@
+Soal
+
+1. Apa itu XAMPP, dan mengapa XAMPP sering digunakan sebagai lingkungan pengembangan lokal?
+
+2. Jelaskan langkah-langkah instalasi XAMPP pada sistem operasi yang Anda gunakan.
+
+3. Sebutkan dan jelaskan fungsi dari komponen-komponen utama dalam XAMPP.
+
+4. Mengapa diperlukan sebuah server web untuk menjalankan aplikasi Laravel?
+
+5. Apa perbedaan antara Apache dan Nginx sebagai server web, dan mengapa kita biasanya menggunakan Apache dalam XAMPP?
+
+6. Bagaimana Anda mengaktifkan mod_rewrite di Apache, dan mengapa itu penting untuk aplikasi Laravel?
+
+7. Apa peran Composer dalam proyek Laravel?
+
+8. Jelaskan langkah-langkah instalasi Composer di sistem operasi Anda.
+
+9. Bagaimana Anda memeriksa apakah Composer telah diinstal dengan benar di sistem Anda?
+
+
+Jawaban 
+
+1. XAMPP adalah singkatan dari X(Cross, bisa digunakan linstas platform diantaranya windows, macOS dan linux), A(Apache, yakni sebuah webserver), M(MYSQL, yakini sebuah database), P(PHP, sebuah bahasa pemrograman), P(Perl, bahasa pemrograman lain yang sering digunakan). XAMPP adalah perangkat lunak yang menyediakan paket bundle untuk menjalankan server web di lingkungan pengembenagan lokal.  Alasan XAMPP banyak digunakan antara lain karena mudah diinstall dan digunakan karena memiliki UI yang sederhana jadi bisa digunakan oleh pemula. kedua, karena menyediakan bundle jadi komponen-komponen yang dibutuhkan untuk pemngembangan web server sudah tersedia dalam satu paket. ketiga, memungkinkan untuk menguji aplikasi di komputer lokal tanpa perlu terhubung ke serven eksternal. keempat, karena gratis dan open source.
+
+2. pertama, unduh XAMPP melalui link https://www.apachefriends.org/download.html. klik dua kali pada file xampp yang baru didownload. lalu akan muncul jendela welcome, klik next. pada jendela select component akan muncul apa saja yang ingin diinstall. setelah diceklis klik tombol next. Selanjutnya akan muncul jendela installation folder dan pilihlah folder yang akan dipilih. lalu akan muncul jendela leanguange dan pilih bahasa yang digunakan, klik next. pada jendela setup tkean tombol next. lalu akan muncul jendela ready to install tekan next atau isntall. setelah proses berhasil akan muncuk informasi complete lalu klik tombol finish.
+
+3.  Apcahe = Server HTTP yang memungkinkan komputer lokal bertindak sebagai server web.
+    MySQL/MariaDB = Database untuk menyimpan dan mengelola data aplikasi.
+    PHP = Bahasa pemrograman server-side yang banyak digunakan dalam pengembangan aplikasi web.
+    phpMyAdmin = Alat berbasis web untuk mengelola database MySQL/MariaDB.
+    FileZilla FTP Server = Untuk menjalankan server FTP lokal (opsional).
+    Tomcat = Server untuk menjalankan aplikasi berbasis Java (opsional).
+
+4. Menangani Permintaan HTTP, Menjalankan PHP, Mengelola Routing, Keamanan, Menyediakan Lingkungan Pengembangan dan Produksi dan Dukungan untuk Fitur Tambahan.
+
+5. Dari segi arsitektur Apache menggunakan proses atau thread untuk menangani setiap koneksi(Multi-Threaded) sedangkan Nginx menggunakan satu loop peristiwa (event loop) untuk menangani banyak koneksi sekaligus (Event-Driven). Secara kinerja Apache lebih lambat untuk menangani koneksi simultan dalam jumlah besar karena model proses/thread-nya sedangkan Nginx lebih cepat dalam menangani koneksi simultan, cocok untuk aplikasi dengan banyak permintaan. Dari segi kompatibilitas Apache lebih kompatibel dengan banyak aplikasi PHP, termasuk framework seperti Laravel sedangkan Nginx memerlukan konfigurasi tambahan untuk menjalankan PHP melalui PHP-FPM. Dalam kemampuan static file Apache mengelola file statis (HTML, CSS, JS) lebih lambat dibandingkan Nginx. Dalam segi dukungan module Apache mendukung modul yang dapat dimuat/dicopot (dynamic module loading) sedangkan Nginx modul harus dikompilasi saat membangun Nginx, kurang fleksibel dibandingkan Apache. dari segi pupularitas apache Digunakan secara luas, terutama dalam lingkungan pengembangan seperti XAMPP sedangkan Nginx Populer untuk server produksi dengan kebutuhan kinerja tinggi.
+
+6.  => Buka file konfigurasi Apache di XAMPP: C:\xampp\apache\conf\httpd.conf
+    => Cari baris berikut: #LoadModule rewrite_module modules/mod_rewrite.so
+    => Hapus tanda # di awal untuk mengaktifkan modul
+    =>Cari dan ubah direktori AllowOverride menjadi All di bagian: <Directory "C:/xampp/htdocs">AllowOverride All</Directory>
+    =>Simpan file dan restart Apache melalui Control Panel XAMPP.
+
+    Mengaktifkan mod_rewrite sangat penting untuk memastikan aplikasi Laravel dapat berjalan dengan URL yang bersih dan aman. Langkah-langkah di atas membantu Anda mengaktifkan modul ini di berbagai sistem, baik di Linux, macOS, atau Windows (XAMPP).
+
+7. Menginstal Laravel, Mengelola Dependensi, Autoloading Kelas, Memperbarui Framework dan Dependensi, Menambahkan Pustaka Pihak Ketiga, Pengelolaan Skrip dan Perintah, Mendukung Lingkungan Dev dan Prod
+
+8.  => Download composer melalui link https://getcomposer.org/download/
+    => Klik dua kali dalam file Composer-Setup yang sudah didownload
+    => Pada jendela select install mode pilih install for all user (recomended)
+    => Pada jendela Installation Option tekan next
+    => Pada jendela settings check pilih file php.exe yang ada di browser dan ceklis add this php to your Path
+    => Pada Jendela proxy settings klik tombol next
+    => Pada jendela Ready to install klik tombol install
+    => Pada jendela information klik tombol finish
+    => Jika berhasil terpasang maka akan muncul jendela completing, lalu klik tombol finish
+
+9. untuk memeriksa apakah composer berhasil terinstall buka command prompt lalu ketikan composer atau composer -v lalu tekan enter maka akan muncul info mengenai composer yang ada di device melalui command propmt tersebut.
+
+
+

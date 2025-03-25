@@ -1,0 +1,42 @@
+1. SELECT * FROM 'dokter';
+
+2. SElECT nama FROM dokter;
+
+3. SELECT * FROM 'dokter' WHERE alamat : 'cipondoh';
+
+4. SELECT * FROM `pasien` ORDER BY usia ASC;;
+
+5. SELECT * FROM resep WHERE tanggal_resep BETWEEN 19 AND 27;
+
+6. SELECT * FROM `pasien` WHERE nama LIKE '%a%';
+
+7. SELECT * FROM 'resep'WHERE alamat LIKE '%pon';
+
+8. SELECT * FROM 'pasien' WHERE usia > 20;
+
+9. SELECT * FROM `pasien` WHERE usia < 20 AND alamat like '%pondok%';
+
+10. SELECT AVG (usia) FROM pasien;
+
+11. UPDATE 'pasien' SET alamat = 'grogol' where nama = 'marni';
+
+12. UPDATE 'resep' SET tanggal_dibuat = 2024-11-21;
+
+13. DELETE FROM 'dokter' WHERE namea = 'baskara';
+
+14. SELECT pasien.nama, dokter.nama, id_resep FROM dokter JOIN pasien ON dokter.id_dokter = pasien.id_dokter WHERE usia > 25;
+
+15. SELECT pasien.nama, pasien.alamat, dokter.nama, dokter.id_resep FROM pasien LEFT JOIN dokter ON pasien.id_dokter = dokter.id_dokter WHERE pasien.alamat LIKE '%pondok%';
+
+16. SELECT dokter.nama, dokter.id_resep, resep.tanggal_dibuat FROM dokter LEFT JOIN resep ON dokter.id_resep = resep.id_resep ORDER BY dokter.id_dokter ASC;
+
+17. SELECT resep.tanggal_dibuat, resep.id_pasien, pasien.nama, pasien.usia FROM resep LEFT JOIN pasien ON resep.id_pasien = pasien.id_pasien ORDER BY pasien.id_pasien DESC;
+
+18. SELECT resep.tanggal_dibuat, resep.id_pasien, pasien.nama, pasien.usia FROM resep RIGHT JOIN pasien ON resep.id_pasien = pasien.id_pasien ORDER BY pasien.usia ASC;
+
+19. SELECT pasien.nama, pasien.no_tlp, dokter.nama, dokter.id_resep, resep.tanggal_dibuat FROM pasien JOIN dokter ON dokter.id_dokter = pasien.id_dokter JOIN resep ON resep.id_pasien = pasien.id_pasien;
+
+20. SELECT pasien.nama, pasien.alamat, pasien.no_tlp, dokter.nama, dokter.id_resep, resep.tanggal_dibuat FROM dokter JOIN pasien ON pasien.id_dokter = dokter.id_dokter JOIN resep ON resep.id_pasien = pasien.id_pasien WHERE pasien.alamat LIKE '%pondok%';
+
+21. SELECT pasien.nama, pasien.alamat, pasien.no_tlp, dokter.nama, dokter.id_resep, resep.tanggal_dibuat FROM dokter JOIN pasien ON pasien.id_dokter = dokter.id_dokter JOIN resep ON resep.id_pasien = pasien.id_pasien ORDER BY pasien.nama ASC;
+
