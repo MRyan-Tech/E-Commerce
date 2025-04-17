@@ -22,7 +22,21 @@ class ProductController extends Controller
 
             ]);
 
-            $imagePath = $request->file("image")->store("products", "public");
+            $publicPatch = public_path("assets/img/products/");
+            if(!file_exists($publicPatch)) {
+                mkdir($publicPatch, 077, true);
+            }
+
+            if($request->hasFile("image")) {
+                $extention = $request->file("image")->getClientOriginalExtension();
+                $filename = time() . "-" . uniqid() . "." . $extention;
+
+                $path = $request->file("image")->move($publicPatch, $filename);
+
+                $imageUrl = "/assets/img/products/" . $filename;
+            }
+
+            // $imagePath = $request->file("image")->store("products", "public/assets");
 
             $product = Product::create([
                 "product_name" => $request->product_name,
@@ -30,7 +44,7 @@ class ProductController extends Controller
                 "price" => $request->price,
                 "description" => $request->description,
                 "category" => $request->category,
-                "image" => $imagePath,
+                "image" => $imageUrl,
             ]);
 
             return response()->json(["message" => "product berhasil ditambahkan", "data" => $product], 201);
@@ -42,7 +56,7 @@ class ProductController extends Controller
     public function allProducts(Request $request)
     {
         try {
-            $products = Product::whereNull("deleted_at")->paginate(2);
+            $products = Product::all();
 
             return response()->json(["data" => $products], 200);
         } catch (Exception $e) {
