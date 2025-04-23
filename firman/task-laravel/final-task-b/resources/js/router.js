@@ -8,6 +8,10 @@ import LoginPage from "./pages/LoginPage.vue";
 import Regist from "./pages/Regist.vue";
 import Dashboard from "./layouts/user/Dashboard.vue";
 import Beranda from "./pages/Beranda.vue";
+import BerandaAdmin from "./pages/admin/BerandaAdmin.vue";
+import Admin from "./layouts/admin/admin.vue";
+import ProductsAdmin from "./pages/admin/ProductsAdmin.vue";
+import TransaksiAdmin from "./pages/admin/TransaksiAdmin.vue";
 
 
 
@@ -15,7 +19,7 @@ const routes = [
     { path: "/", component: Landing,
         children: [
             { path: "", component: Beranda},
-            {path: "/products", component: Product},
+            { path: "/products", component: Product},
         ],
     },
     { path: "/auth", component: Auth,
@@ -23,6 +27,14 @@ const routes = [
             { path: "login", component: LoginPage},
             { path: "regist", component: Regist},
         ],
+    },
+    {
+        path: "/admin", component: Admin,
+            children: [
+                { path: "beranda", component: BerandaAdmin},
+                { path: "products", component: ProductsAdmin},
+                { path: "transaksi", component: TransaksiAdmin},
+            ]
     },
     {
         path: "/dashboard", component: Dashboard,
