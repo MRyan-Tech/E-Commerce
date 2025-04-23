@@ -1,23 +1,23 @@
 <script setup>
 import api from "../api";
 import { ref, onMounted } from "vue";
+import { formatIDR } from "../utils/formatIDR";
+import { debounce } from "lodash";
 
-let product = ref([]);
+let productList= ref([]);
 
-const products = async () => {
+const products = debounce (async () => {
   try {
     await api.get("products").then((response) => {
-      product.value = response.data.data;
-      console.log(product.value);
+      productList.value = response.data.data;
+      console.log(productList.value);
     });
   } catch (error) {
     console.log("error");
   }
-};
+}, 500);
 
-onMounted(async () => {
-  await products();
-});
+onMounted(products);
 </script>
 
 <template>
@@ -82,24 +82,24 @@ onMounted(async () => {
       </div>
     </div>
     <div class="row">
-      <div class="col">
-        <div>
+      <div class="col my-5">
+        <div class=" d-flex justify-content-center gap-3">
           <div
-            v-for="(data, index) in product"
-            :key="index"
+            v-for="product in productList"
+            :key="product.id"
             class="card"
-            style="width: 18rem"
+            style="width: 10rem"
           >
             <img
-              :src="data.image"
+              :src="product.image"
               alt="..."
             />
-            <div class="card-body">
-              <h5 class="card-title">{{ data.product_name }}</h5>
+            <div class="card-body text-center">
+              <h5 class="card-title">{{ product.product_name }}</h5>
               <p class="card-text">
-                {{ data.description }}
+                {{ formatIDR(product.price) }}
               </p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
+              <a href="#" class="btn btn-primary">Detail Produk</a>
             </div>
           </div>
         </div>
