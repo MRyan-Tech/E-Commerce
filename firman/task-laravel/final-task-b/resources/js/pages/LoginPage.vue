@@ -16,10 +16,13 @@ const form = ref({
 
 const handleLogin = async () => {
     try {
-        const res = await api.post("login", form.value);
-        token.value = res.data.token;
-        localStorage.setItem("token", token.value);
-        router.push("/dashboard")        
+        const res = await api.post("login", form.value)
+        .then((response)=> {
+            let {token} = response.data;
+            let {role} = response.data.user;
+            localStorage.setItem("token", token);
+            router.push(role === "admin" ? "/admin/beranda" : "/customer/beranda")        
+        });       
     } catch (error) {
         console.error(error)
     }
