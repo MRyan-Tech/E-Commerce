@@ -7,6 +7,8 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
+use function Pest\Laravel\json;
+
 class ProductController extends Controller
 {
     public function addProduct(Request $request)
@@ -28,11 +30,17 @@ class ProductController extends Controller
             }
 
             if($request->hasFile("image")) {
-                $extention = $request->file("image")->getClientOriginalExtension();
-                $filename = time() . "-" . uniqid() . "." . $extention;
+                $file = $request->file("image");
 
-                $path = $request->file("image")->move($publicPatch, $filename);
+                if ($file->getSize() > 2 * 1024 * 1024) { // 2MB
+                    return response()->json(["error" => "Ukuran gambar maksimal 2MB"], 400);
+                }
 
+                $extentionAllowed = ["jpg", "jpeg", "png"];
+                $extention = strtolower($file->getClientOriginalExtension());
+                $filename = now()->format("YmdHis") . "-" . uniqid() . "." . $extention;
+
+                $file->move($publicPatch, $filename);
                 $imageUrl = "/assets/img/products/" . $filename;
             }
 
@@ -47,7 +55,7 @@ class ProductController extends Controller
 
             return response()->json(["message" => "product berhasil ditambahkan", "data" => $product], 201);
         } catch (Exception $e) {
-            return response()->json(["error" => $e->getMessage()]);
+            return response()->json(["error" => $e->getMessage()], 500);
         };
     }
 
@@ -141,5 +149,18 @@ class ProductController extends Controller
             return response()->json(["message" => $e->getMessage()], 400);
         }
     }
+
+    public function deleteProduct($id) {
+        try {
+            $product = Product::findOrFail($id);
+            $product->delete();
+
+            return response()->json(["message" => "Produk berhasil dihapus"]);
+        } catch (Exception $e) {
+            return response()->json(["message" => $e->getMessage()], 400);
+        }
+    }
+
+    
 
 }

@@ -17,6 +17,9 @@
         "bootstrap": "^5.3.3",
         "bootstrap-icons": "^1.11.3",
         "lodash": "^4.17.21",
-        "vue-router": "^4.5.0"
+        "sweetalert2": "^11.19.1",
+        "vee-validate": "^4.15.0",
+        "vue-router": "^4.5.0",
+        "yup": "^1.6.1"
     }
 }
