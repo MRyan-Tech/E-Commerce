@@ -101,6 +101,13 @@ onMounted(products);
                 </div>
             </div>
         </div>
+        <div class=" row mt-5">
+            <div class=" col">
+                <router-link to="/admin/add-product">
+                    <button type="button" class="btn btn-primary">Tambah Produk</button>
+                </router-link>
+            </div>
+        </div>
         <div class="row mt-8">
             <div class=" col">
                 <div class="">
