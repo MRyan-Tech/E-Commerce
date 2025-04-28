@@ -12,6 +12,7 @@ import BerandaAdmin from "./pages/admin/BerandaAdmin.vue";
 import Admin from "./layouts/admin/admin.vue";
 import ProductsAdmin from "./pages/admin/ProductsAdmin.vue";
 import TransaksiAdmin from "./pages/admin/TransaksiAdmin.vue";
+import AddProduct from "./pages/admin/AddProduct.vue";
 
 
 
@@ -34,6 +35,8 @@ const routes = [
                 { path: "beranda", component: BerandaAdmin},
                 { path: "products", component: ProductsAdmin},
                 { path: "transaksi", component: TransaksiAdmin},
+                { path: "add-product", component: AddProduct}
+
             ]
     },
     {
