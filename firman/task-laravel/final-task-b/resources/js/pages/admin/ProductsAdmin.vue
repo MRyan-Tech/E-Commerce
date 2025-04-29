@@ -133,6 +133,9 @@ onMounted(products);
                                     <p class=" card-text">
                                         {{ formatIDR(product.price) }}
                                     </p>
+                                    <router-link :to="`/admin/products/${product.id}`">
+                                        <button class=" btn btn-outline-primary">Detail Produk</button>
+                                    </router-link>
                                 </div>
                             </div>
                         </div>
