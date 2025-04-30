@@ -10,6 +10,7 @@ const route = useRoute();
 const router = useRouter();
 const product = ref({});
 const loading = ref(false);
+const id = ref({});
 const error = ref("");
 let token = localStorage.getItem("token")
 
@@ -21,7 +22,7 @@ const detailProduct = async () => {
         await api.get(`products/${route.params.id}`)
         .then((response) => {
             product.value = response.data.data;
-            console.log(product);
+            id.value = response.data.data.id
         })
     } catch (error) {
         error.value = error.response?.data?.message || "Tidak bisa memuat detail produk";
@@ -91,7 +92,7 @@ const deleteProduct = async() => {
                         Deskripsi: {{ product.description }}
                     </p>
                     <div class=" d-flex gap-2">
-                        <router-link to="/admin/products">
+                        <router-link :to="`/admin/update-product/${id}`">
                             <button class="btn btn-secondary">
                                 Update produk
                             </button>
