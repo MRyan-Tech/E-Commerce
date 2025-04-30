@@ -129,20 +129,45 @@ class ProductController extends Controller
 
             $product = Product::findOrFail($id);
 
-            $product->update([
-                "product_name" => $request->product_name,
-                "stock" => $request->stock,
-                "price" => $request->price,
-                "description" => $request->description,
-                "category" => $request->category,
-            ]);
+            $dataToUpddate = [
+                "product_name" => $request->product_name ?? $product->product_name,
+                "stock" => $request->stock ?? $product->stock,
+                "price" => $request->price ?? $product->price,
+                "description" => $request->description ?? $product->description,
+                "category" => $request->product_name ?? $product->category,
+            ];
 
             if ($request->hasFile("image")) {
-                $imagePath = $request->file("image")->store("products", "public");
-                $product->image = $imagePath;
+                $file = $request->file("image");
+
+                if ($file->getSize() > 2 * 1024 * 1024) {
+                    return response()->json(["error" => "Ukuran file maksimal 2MB"], 400);
+                }
+
+                $allowedExtention = ["jpg", "jpeg", "png"];
+                $extention = strtolower($file->getClientOriginalExtension());
+
+                if (!in_array($extention, $allowedExtention)) {
+                    return response()->json(["error" => "Format gambar harus jpg, jpeg atau png"], 400);
+                }
+
+                $publicPatch = public_path("assets/img/products");
+
+                $filename = now()->format("YmdHis"). "-" . uniqid() . "." . $extention;
+
+                $file->move($publicPatch, $filename);
+
+                if ($product->image) {
+                    $oldImagePath = public_path($product->image);
+                    if(file_exists($oldImagePath)) {
+                        unlink($oldImagePath);
+                    };
+                }
+
+                $dataToUpddate["image"] = "/assets/img/products/" . $filename;
             }
 
-            $product->save();
+            $product->update($dataToUpddate);
 
             return response()->json(["message" => "Data produk diperbaharui", "data" => $product], 200);
         } catch (Exception $e) {
@@ -153,6 +178,14 @@ class ProductController extends Controller
     public function deleteProduct($id) {
         try {
             $product = Product::findOrFail($id);
+
+            if ($product->image) {
+                $imagePath = public_path($product->image);
+                if (file_exists($imagePath)) {
+                    unlink($imagePath);
+                };
+            }
+
             $product->delete();
 
             return response()->json(["message" => "Produk berhasil dihapus"]);
