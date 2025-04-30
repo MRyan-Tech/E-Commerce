@@ -14,6 +14,7 @@ import ProductsAdmin from "./pages/admin/ProductsAdmin.vue";
 import TransaksiAdmin from "./pages/admin/TransaksiAdmin.vue";
 import AddProduct from "./pages/admin/AddProduct.vue";
 import DetailProductAdmin from "./pages/admin/DetailProductAdmin.vue";
+import UpdateProductAdmin from "./pages/admin/UpdateProductAdmin.vue";
 
 
 
@@ -38,6 +39,7 @@ const routes = [
                 { path: "transaksi", component: TransaksiAdmin},
                 { path: "add-product", component: AddProduct},
                 { path: "products/:id", component: DetailProductAdmin},
+                {path: "update-product/:id", component: UpdateProductAdmin}
 
             ]
     },
