@@ -147,7 +147,7 @@ const addProduct = handleSubmit (async (formData) => {
                                         Kategori <span class=" text-danger">*</span>
                                     </label>
                                     <select v-model="category" class=" form-select" id="category" name="category" :class="{'is-invalid' : errors.category }">
-                                        <option value="" disabled selected>Pilih Kategory</option>
+                                        <option value="" disabled selected>Pilih Kategori</option>
                                         <option value="men">Pria</option>
                                         <option value="women">Wanita</option>
                                     </select>
