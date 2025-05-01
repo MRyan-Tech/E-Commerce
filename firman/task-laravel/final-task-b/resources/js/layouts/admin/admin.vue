@@ -2,6 +2,7 @@
     import { RouterLink, RouterView } from 'vue-router';
     import { useRouter } from 'vue-router';
     import { onBeforeMount } from 'vue';
+    import Footer from '../../components/Footer.vue';
 
     const router = useRouter();
 
@@ -67,4 +68,5 @@
         </div>
     </nav>
     <RouterView />
+    <Footer />
 </template>
