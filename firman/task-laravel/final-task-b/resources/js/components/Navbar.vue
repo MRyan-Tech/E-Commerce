@@ -28,31 +28,12 @@ import { RouterLink } from 'vue-router';
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <router-link class="nav-link" to="/">Home</router-link>
+                        <router-link class="nav-link fw-semibold" to="/">Beranda</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link class="nav-link" to="/products"
-                            >Product</router-link
+                        <router-link class="nav-link fw-semibold" to="/products"
+                        >Produk</router-link
                         >
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a
-                            class="nav-link dropdown-toggle"
-                            href="#"
-                            role="button"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                        >
-                            Filter
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a class="dropdown-item" href="#">Men</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">Women</a>
-                            </li>
-                        </ul>
                     </li>
                 </ul>
                 <div class="d-flex">
