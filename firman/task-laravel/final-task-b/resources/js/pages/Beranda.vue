@@ -81,6 +81,25 @@ onMounted(products);
         </div>
       </div>
     </div>
+    <div class="row my-5">
+      <div class="col text-center">
+        <p class=" fs-2 fw-semibold">Kenapa belanja harus di MamanShop?</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col py-3 px-3 text-center" sm="12" lg="4">
+        <p class=" fw-medium">Fashion Trendy Harga Bersahabat</p>
+        <p>Di toko kami, kamu bisa tampil stylish setiap hari dengan harga yang ramah di dompet. Cocok untuk kamu yang ingin tetap modis tanpa harus boros!</p>
+      </div>
+      <div class="col py-3 px-3 text-center" sm="12" lg="4">
+        <p class=" fw-medium">Belanja Aman Style Maksimal</p>
+        <p>produk yang kamu lihat adalah produk yang akan kamu terima — pengemasan rapi dan pengiriman cepat. Jadi kamu bisa tampil maksimal, tanpa drama!</p>
+      </div>
+      <div class="col py-3 px-3 text-center">
+        <p class=" fw-medium">Tampil Stylish Setiap Hari</p>
+        <p>Kami hadir dengan pilihan fashion lengkap mulai dari casual, semi-formal, hingga outfit kekinian yang cocok untuk semua suasana.</p>
+      </div>
+    </div>
     <div class="row">
       <div class="col my-5">
         <div class=" d-flex justify-content-center gap-3">
@@ -103,6 +122,13 @@ onMounted(products);
             </div>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col text-center">
+        <router-link to="/products">
+          <button class=" btn btn-outline-primary">Lihat produk lainnya</button>
+        </router-link>
       </div>
     </div>
   </div>
