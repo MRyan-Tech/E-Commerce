@@ -22,6 +22,7 @@ const products = debounce(async () => {
                 params: {
                     page: meta.value.current_page,
                     per_page: meta.value.per_page,
+                    search: searchQuery.value,
                 },
             })
             .then((response) => {
@@ -59,7 +60,7 @@ const pageNumber = computed(() => {
     let endPage = Math.min(meta.value.last_page, startPage + maxVisible - 1);
 
     if (endPage - startPage + 1 < maxVisible) {
-        startPage = Math(1, endPage - maxVisible + 1);
+        startPage = Math.max(1, endPage - maxVisible + 1);
     }
 
     for (let i = startPage; i <= endPage; i++) {
@@ -94,7 +95,7 @@ onMounted(products);
                     <button v-if="searchQuery"
                         class="btn btn-outline-primary"
                         type="button"
-                        @click="searchQuery = ''; products"
+                        @click="() => {searchQuery = ''; products();}"
                     >
                         <i class="bi bi-search">Cari</i>
                     </button>
@@ -140,6 +141,31 @@ onMounted(products);
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div v-if="meta.total > 0" class=" d-flex justify-content-center mt-4">
+                    <nav>
+                        <ul class=" pagination">
+                            <li class=" page-item" :class="{ disabled: meta.current_page === 1}">
+                                <a class=" page-link" href="#" @click.pervent="goToPage(meta.current_page - 1)">
+                                    <
+                                </a>
+                            </li>
+                            <li v-for="page in pageNumber" :key="page" class=" page-item" :class="{ active: page === meta.current_page}">
+                                <a class="page-link" href="#" @click.prevent="goToPage(page)">
+                                    {{ page }}
+                                </a>
+                            </li>
+                            <li class=" page-item" :class="{ disabled: meta.current_page === meta.last_page}">
+                                <a class=" page-link" href="#" @click.prevent="goToPage(meta.current_page + 1)">
+                                    >
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>
