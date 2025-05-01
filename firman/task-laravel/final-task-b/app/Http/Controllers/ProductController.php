@@ -92,9 +92,6 @@ class ProductController extends Controller
                 ]
                 ], 200);
 
-
-            // $products = Product::all();
-            // return response()->json(["data" => $products], 200);
         } catch (Exception $e) {
             return response()->json(["message" => $e->getMessage()], 400);
         }
