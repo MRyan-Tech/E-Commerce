@@ -1,12 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
-// import Dashboard from "./layouts/Dashboard.vue";
 import Auth from "./layouts/authentication/Auth.vue";
 import Landing from "./layouts/landing/Landing.vue";
-// import Landing from "./pages/Landing.vue";
 import Product from "./pages/Product.vue";
 import LoginPage from "./pages/LoginPage.vue";
 import Regist from "./pages/Regist.vue";
-import Dashboard from "./layouts/user/Dashboard.vue";
 import Beranda from "./pages/Beranda.vue";
 import BerandaAdmin from "./pages/admin/BerandaAdmin.vue";
 import Admin from "./layouts/admin/admin.vue";
@@ -15,6 +12,8 @@ import TransaksiAdmin from "./pages/admin/TransaksiAdmin.vue";
 import AddProduct from "./pages/admin/AddProduct.vue";
 import DetailProductAdmin from "./pages/admin/DetailProductAdmin.vue";
 import UpdateProductAdmin from "./pages/admin/UpdateProductAdmin.vue";
+import BerandaCostumer from "./pages/customer/BerandaCostumer.vue";
+import DashboardCustomer from "./layouts/customer/DashboardCustomer.vue";
 
 
 
@@ -44,7 +43,10 @@ const routes = [
             ]
     },
     {
-        path: "/dashboard", component: Dashboard,
+        path: "/customer", component: DashboardCustomer,
+            children: [
+                { path: "beranda", component: BerandaCostumer}
+            ]
     }
 ];
 

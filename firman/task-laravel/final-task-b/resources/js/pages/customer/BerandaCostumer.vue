@@ -1,7 +1,7 @@
 <script setup>
-import api from "../api";
+import api from "../../api";
 import { ref, onMounted } from "vue";
-import { formatIDR } from "../utils/formatIDR";
+import { formatIDR } from "../../utils/formatIDR";
 import { debounce } from "lodash";
 
 let productList= ref([]);
@@ -126,7 +126,7 @@ onMounted(products);
     </div>
     <div class="row">
       <div class="col text-center">
-        <router-link to="/products">
+        <router-link to="/customer/products">
           <button class=" btn btn-outline-primary">Lihat produk lainnya</button>
         </router-link>
       </div>

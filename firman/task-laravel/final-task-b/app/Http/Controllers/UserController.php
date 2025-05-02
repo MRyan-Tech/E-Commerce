@@ -31,8 +31,7 @@ class UserController extends Controller
                 "password" => Hash::make($request->password)
             ]);
 
-            $token = $user->createToken("auth_token")->plainTextToken;
-            return response()->json(["message" => "registrasi berhasil", "data" => $user, "token" => $token], 201);
+            return response()->json(["message" => "registrasi berhasil", "data" => $user], 201);
         } catch (ValidationException $e) {
             return response()->json(["error" => $e->validator->errors()], 422);
         } catch (Exception $e) {

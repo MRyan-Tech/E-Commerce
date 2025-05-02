@@ -226,14 +226,7 @@ const updateData = handleSubmit(async (formValues) => {
                                         <option value="men">Pria</option>
                                         <option value="women">Wanita</option>
                                     </select>
-                                    <!-- <input
-                                        v-model="category"
-                                        type="text"
-                                        class="form-control"
-                                        :class="{
-                                            'is-invalid': errors.category,
-                                        }"
-                                    /> -->
+                
                                     <ErrorMessage
                                         name="category"
                                         class="invalid-feedback"

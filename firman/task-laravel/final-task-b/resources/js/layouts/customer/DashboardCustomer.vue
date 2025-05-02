@@ -41,12 +41,12 @@ const handleLogout = () => {
                         <router-link class="nav-link" to="/">Home</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link class="nav-link" to="/product"
+                        <router-link class="nav-link" to="/customer/products"
                             >Product</router-link
                         >
                     </li>
                     <li class="nav-item">
-                        <router-link class="nav-link" to="/contact"
+                        <router-link class="nav-link" to="/customer/contact-us"
                             >Hubungi Kami</router-link
                         >
                     </li>
@@ -77,4 +77,5 @@ const handleLogout = () => {
             </div>
         </div>
     </nav>
+    <router-view></router-view>
 </template>
