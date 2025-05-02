@@ -1,7 +1,7 @@
 <script setup>
-import api from "../api";
+import api from "../../api";
 import { ref, onMounted } from "vue";
-import { formatIDR } from "../utils/formatIDR";
+import { formatIDR } from "../../utils/formatIDR";
 import { debounce } from "lodash";
 
 let productList= ref([]);
