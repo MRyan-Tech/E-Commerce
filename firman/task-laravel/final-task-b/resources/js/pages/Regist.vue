@@ -2,56 +2,63 @@
 import { ref } from "vue";
 import api from "../api.js";
 import { useRouter } from "vue-router";
+import Swal from "sweetalert2";
+import * as yup from "yup";
+import { useField, useForm, ErrorMessage } from "vee-validate";
 
-const form = ref({
-    name: "",
-    user_name: "",
-    phone: "",
-    email: "",
-    password: "",
+
+const schema = yup.object({
+    name: yup.string().required("Nama wajib diisi"),
+    user_name: yup.string().required("Nama tidak boleh kosong"),
+    phone: yup.string().matches(/^(\+62|62)?[\s-]?0?8[1-9]{1}\d{1}[\s-]?\d{4}[\s-]?\d{2,5}$/, "Nomor telpon tidak valid").required("Nomor telpon wajib diisi"),
+    email: yup.string().required("Email tidak boleh kosong").email("Alamat email tidak valid"),
+    password: yup.string().required("Password wajib diisi").matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/, "Minimal 6 karakter, satu huruf besar dan satu angka"),
 });
-const token = ref(localStorage.getItem("token") || "");
+
+const {handleSubmit, errors, setFieldValue} = useForm({
+    validationSchema: schema
+});
+
+const { value: name } = useField("name")
+const { value: userName } = useField("user_name")
+const { value: phone } = useField("phone")
+const { value: email } = useField("email")
+const { value: password } = useField("password")
+
+const isLoading = ref(false)
+const message = ref("")
+
+
 const router = useRouter();
 
-const handleRegist = async () => {try {
-        const res = await api.post("/register", form.value);
-        token.value = res.data.token;
-        localStorage.setItem("token", token.value);
-        router.push({ name: "/dashboard" });
+const handleRegist = handleSubmit( async (formData) => {
+    isLoading.value = true;
+
+    try {
+        const submitForm = new FormData();
+        
+        submitForm.append("name", formData.name);
+        submitForm.append("user_name", formData.user_name);
+        submitForm.append("phone", formData.phone);
+        submitForm.append("email", formData.email);
+        submitForm.append("password", formData.password);
+
+        const response = await api.post("/register", submitForm)
+        Swal.fire({
+            title: "Registrasi berhasil",
+            text: "Silahkan login dengan akun anda",
+            timer: 1500,
+            icon: "success",
+            position: "top-end",
+
+        });
+
+        router.push("/auth/login")
     } catch (error) {
-        console.error(error);
+        console.error("error", error)
     }
-};
+})
 
-// export default {
-//     data() {
-//         return {
-//             name: "",
-//             user_name: "",
-//             email: "",
-//             phone: "",
-//             password: "",
-//         };
-//     },
-//     methods: {
-//         async handleRegist() {
-//             try {
-//                 const response = await api.post("/register", {
-//                     name: this.name,
-//                     user_name: this.user_name,
-//                     email: this.email,
-//                     phone: this.phone,
-//                     password: this.password,
-//                 });
-
-//                 alert("Registrasi berhasil");
-//                 this.$router.push("/auth/login")
-//             } catch (error) {
-//                 console.error("registrasi gagal: " + error.response.data.message)
-//             }
-//         }
-//     }
-// }
 </script>
 
 <template>
@@ -64,11 +71,18 @@ const handleRegist = async () => {try {
                         <div class="mb-3">
                             <label for="name" class="form-label">Nama</label>
                             <input
-                                v-model="form.name"
+                                v-model="name"
                                 type="text"
                                 class="form-control"
                                 id="name"
+                                name="name"
+                                :class="{
+                                    'is-invalid' : errors.name
+                                }"
                             />
+                            <div v-if="errors.name" class=" invalid-feedback">
+                                <ErrorMessage name="name" />
+                            </div>
                         </div>
 
                         <div class="mb-3">
@@ -76,55 +90,84 @@ const handleRegist = async () => {try {
                                 >Nama Pengguna</label
                             >
                             <input
-                                v-model="form.user_name"
+                                v-model="userName"
                                 type="text"
                                 class="form-control"
                                 id="user-name"
+                                name="user_name"
+                                :class="{
+                                    'is-invalid' : errors.user_name
+                                }"
                             />
+                            <div v-if="errors.user_name" class=" invalid-feedback">
+                                <ErrorMessage name="user_name" />
+                            </div>
                         </div>
 
                         <div class="mb-3">
-                            <label for="phone-number" class="form-label"
+                            <label for="phone" class="form-label"
                                 >Nomor Handphone</label
                             >
                             <input
-                                v-model="form.phone"
-                                type="text"
+                                v-model="phone"
+                                type="string"
                                 class="form-control"
-                                id="phone-number"
+                                id="phone"
+                                name="phone"
+                                :class="{
+                                    'is-invalid' : errors.phone
+                                }"
                             />
+                            <div v-if="errors.phone" class="invalid-feedback">
+                                <ErrorMessage name="phone" />
+                            </div>
                         </div>
 
                         <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">
+                            <label for="email" class="form-label">
                                 Email address
                             </label>
                             <input
-                                v-model="form.email"
+                                v-model="email"
                                 type="email"
                                 class="form-control"
-                                id="exampleInputEmail1"
+                                id="email"
                                 aria-describedby="emailHelp"
+                                name="email"
+                                :class="{
+                                    'is-invalid' : errors.email
+                                }"
                             />
+                            <div v-if="errors.email" class=" invalid-feedback">
+                                <ErrorMessage name="email" />
+                            </div>
                             <div id="emailHelp" class="form-text">
                                 We'll never share your email with anyone else.
                             </div>
                         </div>
                         <div class="mb-3">
                             <label
-                                for="exampleInputPassword1"
+                                for="password"
                                 class="form-label"
                                 >Password</label
                             >
                             <input
-                                v-model="form.password"
+                                v-model="password"
                                 type="password"
                                 class="form-control"
-                                id="exampleInputPassword1"
+                                id="password"
+                                name="password"
+                                :class="{
+                                    'is-invalid' : errors.password
+                                }"
                             />
+                            <div v-if="errors.password">
+                                <ErrorMessage name="password" />
+                            </div>
                         </div>
                         <button type="submit" class="btn btn-primary w-100">
-                            Submit
+                            <span v-if="isLoading" class=" spinner-border spinner-border-sm"></span>
+                            <span v-else-if="!isLoading">Registrasi</span>
                         </button>
                         <router-link to="/">
                             <button
