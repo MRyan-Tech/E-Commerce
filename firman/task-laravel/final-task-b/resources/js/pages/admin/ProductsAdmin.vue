@@ -74,7 +74,7 @@ onMounted(products);
 </script>
 
 <template>
-    <div class="container">
+    <div class="container vh-100">
         <div class="row">
             <div class="col">
                 <div class="input-group">
