@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
 import { useRouter } from 'vue-router';
+import Footer from '../../components/Footer.vue';
+import Swal from 'sweetalert2';
 
 const router = useRouter()
 
@@ -8,6 +10,22 @@ const handleLogout = () => {
     localStorage.clear()
 
     router.push("/")
+}
+
+let userName = localStorage.getItem("user_name")
+
+const profile = () => {
+    Swal.fire({
+        title: "Fitur ini belum tersedia",
+        icon: "info"
+    })
+}
+
+const transaction = () => {
+    Swal.fire({
+        title: "Fitur ini belum tersedia",
+        icon: "info"
+    })
 }
 
 
@@ -52,30 +70,37 @@ const handleLogout = () => {
                     </li>
                     
                 </ul>
+
                 <div class="d-flex">
-                    <li class="nav-item dropdown">
-                        <a
-                            class="nav-link dropdown-toggle"
-                            href="#"
-                            role="button"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                        >
-                            Nama Pengguna
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a class="dropdown-item" href="#">Pembelian</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#" @click="handleLogout
-                                ">Logout</a>
-                            </li>
-                        </ul>
-                    </li>
+                    <ul class=" navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a
+                                class="nav-link dropdown-toggle"
+                                href="#"
+                                role="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                            >
+                                {{ userName }}
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a @click="profile" class="dropdown-item" href="#">Profil</a>
+                                </li>
+                                <li>
+                                    <a @click="transaction" class="dropdown-item" href="#">Pembelian</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#" @click="handleLogout
+                                    ">Logout</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
     </nav>
     <router-view></router-view>
+    <Footer></Footer>
 </template>

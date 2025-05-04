@@ -14,6 +14,8 @@ import DetailProductAdmin from "./pages/admin/DetailProductAdmin.vue";
 import UpdateProductAdmin from "./pages/admin/UpdateProductAdmin.vue";
 import BerandaCostumer from "./pages/customer/BerandaCostumer.vue";
 import DashboardCustomer from "./layouts/customer/DashboardCustomer.vue";
+import ProductsCustomer from "./pages/customer/ProductsCustomer.vue";
+import DetailProductCustomer from "./pages/customer/DetailProductCustomer.vue";
 
 
 
@@ -45,7 +47,9 @@ const routes = [
     {
         path: "/customer", component: DashboardCustomer,
             children: [
-                { path: "beranda", component: BerandaCostumer}
+                { path: "beranda", component: BerandaCostumer},
+                { path: "products", component: ProductsCustomer},
+                { path: "products/:id", component: DetailProductCustomer},
             ]
     }
 ];

@@ -74,9 +74,9 @@ onMounted(products);
 </script>
 
 <template>
-    <div class="container vh-100">
+    <div class=" vh-100">
         <div class="row">
-            <div class="col">
+            <div class="col px-5">
                 <div class="input-group">
                     <input
                         v-model="searchQuery"
@@ -100,13 +100,6 @@ onMounted(products);
                         <i class="bi bi-search">Cari</i>
                     </button>
                 </div>
-            </div>
-        </div>
-        <div class=" row mt-5">
-            <div class=" col">
-                <router-link to="/admin/add-product">
-                    <button type="button" class="btn btn-primary">Tambah Produk</button>
-                </router-link>
             </div>
         </div>
         <div class="row mt-8">
@@ -134,7 +127,7 @@ onMounted(products);
                                     <p class=" card-text">
                                         {{ formatIDR(product.price) }}
                                     </p>
-                                    <router-link :to="`/admin/products/${product.id}`">
+                                    <router-link :to="`/customer/products/${product.id}`">
                                         <button class=" btn btn-outline-primary">Detail Produk</button>
                                     </router-link>
                                 </div>
