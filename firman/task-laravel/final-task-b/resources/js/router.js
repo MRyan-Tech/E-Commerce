@@ -16,6 +16,7 @@ import BerandaCostumer from "./pages/customer/BerandaCostumer.vue";
 import DashboardCustomer from "./layouts/customer/DashboardCustomer.vue";
 import ProductsCustomer from "./pages/customer/ProductsCustomer.vue";
 import DetailProductCustomer from "./pages/customer/DetailProductCustomer.vue";
+import CustomerList from "./pages/admin/CustomerList.vue";
 
 
 
@@ -40,7 +41,8 @@ const routes = [
                 { path: "transaksi", component: TransaksiAdmin},
                 { path: "add-product", component: AddProduct},
                 { path: "products/:id", component: DetailProductAdmin},
-                {path: "update-product/:id", component: UpdateProductAdmin}
+                {path: "update-product/:id", component: UpdateProductAdmin},
+                { path: "customer-list", component: CustomerList},
 
             ]
     },
