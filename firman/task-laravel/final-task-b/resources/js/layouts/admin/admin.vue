@@ -54,8 +54,8 @@
                         >
                     </li>
                     <li class="nav-item" >
-                        <router-link class=" nav-link" to="/admin/transaksi">
-                            Transaksi
+                        <router-link class=" nav-link" to="/admin/customer-list">
+                            Customer
                         </router-link>
                     </li>
                 </ul>
