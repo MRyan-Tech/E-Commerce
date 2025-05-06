@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\CartItem;
 
 class Product extends Model
 {   
@@ -15,4 +16,9 @@ class Product extends Model
         "category",
         "image",
     ];
+
+    public function cartItems()
+    {
+        return $this->hasMany(CartItem::class);
+    }
 }
