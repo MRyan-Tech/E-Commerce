@@ -12,7 +12,9 @@ const product = ref({});
 const loading = ref(false);
 const id = ref({});
 const error = ref("");
-let token = localStorage.getItem("token")
+const token = localStorage.getItem("token");
+const quantity = ref(1)
+
 
 
 const detailProduct = async () => {
@@ -35,11 +37,17 @@ const detailProduct = async () => {
 
 onMounted(detailProduct);
 
-const addToCart = () => {
-    Swal.fire({
-        title: "Fitur ini belum tersedia",
-        icon: "info"
-    })
+const addToCart = async () => {
+    try {
+        await api.post("cart", {product_id: product.value.id, quantity: quantity.value}, {
+            headers: {
+                "Authorization": `Bearer ${token}`,
+            }
+        })
+        Swal.fire("Produk ditambahkan ke dalam keranjang", "", "success")
+    } catch (error) {
+        Swal.fire("Produk gagal ditambahkan", "", "error")
+    }    
 }
 </script>
 
@@ -56,7 +64,6 @@ const addToCart = () => {
         </div>
 
         <div v-else>
-            <h1 class="mb-4">{{ product.product_name }}</h1>
             <div class="card">
                 <img
                     :src="product.image"
@@ -73,6 +80,7 @@ const addToCart = () => {
                         Deskripsi: {{ product.description }}
                     </p>
                     <div class=" d-flex gap-2">
+                        <input type="number" v-model="quantity" min="1" :max="product.stock" class="form-control w-25" />                        
                         <button @click="addToCart" class="btn px-5 py-2" style="background-color: #FF4433;/">
                             <i class="bi bi-cart-plus-fill" style="color: white;"></i>
                         </button>
