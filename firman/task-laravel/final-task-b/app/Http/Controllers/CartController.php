@@ -3,18 +3,33 @@
 namespace App\Http\Controllers;
 
 use App\Models\CartItem;
+use App\Models\Product;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
 {
     public function allCart()
     {   
-        $user = Auth::user();
+        try {
+            $cartItems = CartItem::with("product", "user")
+                ->get();
 
-        $cartItems = $user()->cartItems()->with("product")->get();
-
-        return response()->json(["data" => $cartItems], 200);
+            $totalPrice = $cartItems->sum(function ($item) {
+                return $item->quantity * $item->product->price;
+            });
+    
+            return response()->json(["data" => $cartItems], 200);
+    
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to retrieve cart items',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 
     public function cartById($id)
@@ -32,23 +47,43 @@ class CartController extends Controller
     {
         $request->validate([
             "product_id" => "required|exists:products,id",
-            "quantity" => "nullable|min:1",
+            "quantity" => "nullable|min:1|max: ". Product::find($request->product_id)->stock,
         ]);
 
-        $item = CartItem::where("user_id", Auth::id())->where("product_id", $request->product_id)->first();
+        try {
+            return DB::transaction(function () use ($request) {
+                $user = Auth::user();
+                $product = Product::lockForUpdate()->find($request->product_id);
+                $quantity = $request->input("quantity", 1);
 
-        if ($item) {
-            $item->quantity += $request->input("quantity", 1);
-            $item->save();
-        } else {
-            $item = CartItem::create([
-                "user_id" => Auth::id(),
-                "product_id" => $request->product_id,
-                "quantity" => $request->input("quantity", 1),
-            ]);
+                if ($user->id !== Auth::id()) {
+                    throw new \Exception("Customer tidak sesuai");
+                }
+
+                if ($product->stock < $quantity) {
+                    throw new \Exception("Stok tidak mencukupi");
+                }
+
+
+
+                $cartItem = CartItem::updateOrCreate(
+                    [
+                        'user_id' => $user->id,
+                        'product_id' => $product->id
+                    ],
+                    [
+                        'quantity' => DB::raw("quantity + {$quantity}")
+                    ]
+                );
+
+                $product->decrement("stock", $quantity);
+
+                return response()->json(["message" => "Produk berhasil ditambahkan ke cart", "data" => $cartItem-> load("product")], 200);
+            });
+        } catch (Exception $e) {
+            return response()->json(["message" => "gagal menambahkan produk", $e->getMessage()], 500);
         }
 
-        return response()->json(["mesage" => "Produk berhasil ditambahkan ke dalam Cart", "item" => $item], 200);
     }
 
     public function removeFromCart($id)
