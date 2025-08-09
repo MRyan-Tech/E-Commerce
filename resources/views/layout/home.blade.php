@@ -70,7 +70,11 @@
                                             @php
                                             $about = App\Models\About::first();
                                             @endphp
-                                            <img class="logo-dark2" src="/uploads/{{$about->logo}}" alt="logo">
+                                            @if($about && $about->logo)
+    <img class="logo-dark2" src="/uploads/{{ $about->logo }}" alt="logo">
+@else
+    <img class="logo-dark2" src="/uploads/default-logo.png" alt="logo">
+@endif
                                             <span class="store-name">Gadget Store</span>
                                         </a>
                                     </div>
